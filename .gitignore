@@ -1,0 +1,21 @@
+# Contains real Supabase DB password + API key — never commit this
+คำอธิบายระบบ/เชื่อม account git และ supabas.txt
+
+# Laravel (once design-system/ is scaffolded into a real app here)
+/vendor
+/node_modules
+.env
+.env.*
+!.env.example
+/storage/*.key
+/public/hot
+/public/storage
+/bootstrap/ssr
+Homestead.json
+Homestead.yaml
+.phpunit.result.cache
+auth.json
+.fleet
+.idea
+.vscode
+.zed

@@ -1,0 +1,146 @@
+{
+  "manifestVersion": 3,
+  "name": "TOTO Arena",
+  "namespace": "TotoArena",
+  "files": [
+    "01-system-flow.md",
+    "02-architecture.md",
+    "03-gamification.md",
+    "04-screens.md",
+    "components/ActivityLog/README.md",
+    "components/AnswerOption/README.md",
+    "components/Button/README.md",
+    "components/Crest/README.md",
+    "components/LeaderboardRow/README.md",
+    "components/QuestCard/README.md",
+    "components/RankTier/README.md",
+    "components/ScreenHallOfFame/README.md",
+    "components/ScreenHome/README.md",
+    "components/ScreenKnowledgeHub/README.md",
+    "components/ScreenParentContent/README.md",
+    "components/ScreenParentDashboard/README.md",
+    "components/ScreenQuiz/README.md",
+    "components/ScreenSettings/README.md",
+    "components/ScreenSkillReport/README.md",
+    "components/ScreenTutor/README.md",
+    "components/StatTile/README.md",
+    "components/ThemeToggle/README.md",
+    "components/TutorBubble/README.md",
+    "components/XPBar/README.md",
+    "components/bundle.css",
+    "tokens.css"
+  ],
+  "libraries": [],
+  "components": [
+    {
+      "name": "ActivityLog",
+      "group": "Parent",
+      "summary": "ตาราง log การเข้าใช้งานสำหรับผู้ปกครอง — วัน เวลาเข้า–ออก ระยะเวลา กิจกรรม อุปกรณ์"
+    },
+    {
+      "name": "AnswerOption",
+      "group": "Learning",
+      "summary": "ตัวเลือกคำตอบปรนัย มี 4 สถานะ: ปกติ, เลือกอยู่, ถูกต้อง, ยังไม่ใช่"
+    },
+    {
+      "name": "Button",
+      "group": "Actions",
+      "summary": "ปุ่มกดสำหรับทุกการกระทำ มี 3 แบบ: primary (lime), secondary, ghost และขนาด sm"
+    },
+    {
+      "name": "Crest",
+      "group": "Game",
+      "summary": "TOTO Crest — เหรียญตราความเชี่ยวชาญรายหัวข้อ 5 ระดับ: Bronze, Silver, Gold, Diamond, Mythic"
+    },
+    {
+      "name": "LeaderboardRow",
+      "group": "Social",
+      "summary": "แถวในตาราง TOTO Hall of Fame — อันดับ, อวาตาร์, ชื่อ + tier, XP, การเปลี่ยนอันดับ"
+    },
+    {
+      "name": "QuestCard",
+      "group": "Game",
+      "summary": "การ์ดภารกิจ (Quest) แสดงเป้าหมาย ความคืบหน้า และรางวัล"
+    },
+    {
+      "name": "RankTier",
+      "group": "Game",
+      "summary": "ป้ายระดับชั้น 4 ขั้น: Novice Learner → TOTO Challenger → TOTO Vanguard → TOTO Grandmaster"
+    },
+    {
+      "name": "ScreenHallOfFame",
+      "group": "Screens",
+      "summary": "หน้า TOTO Hall of Fame — กระดานอันดับ 3 แบบ: Weekly, The Apex Board, Ghost Rival.",
+      "page": true
+    },
+    {
+      "name": "ScreenHome",
+      "group": "Screens",
+      "summary": "หน้าแรกของนักเรียน (Arena Home) — ตอบให้ได้ทันทีว่าเลเวลไหน วันนี้ต้องทำอะไร และพี่โต้แนะนำอะไร.",
+      "page": true
+    },
+    {
+      "name": "ScreenKnowledgeHub",
+      "group": "Screens",
+      "summary": "หน้าเรียนเนื้อหา (Knowledge Hub) — สรุปภาษาไทยที่ AI สร้างจากชีทโรงเรียน พร้อมอ้างอิงหน้าต้นฉบับ.",
+      "page": true
+    },
+    {
+      "name": "ScreenParentContent",
+      "group": "Screens",
+      "summary": "หน้าคลังเนื้อหา & ข้อสอบของผู้ปกครอง — เพิ่มเนื้อหาและตั้งค่าข้อสอบโดยไม่ต้องสร้างเอง.",
+      "page": true
+    },
+    {
+      "name": "ScreenParentDashboard",
+      "group": "Screens",
+      "summary": "หน้าภาพรวมผู้ปกครอง (Parent Console) — ข้อมูลนำ น้ำเสียงสุภาพ ไม่มีศัพท์เกม.",
+      "page": true
+    },
+    {
+      "name": "ScreenQuiz",
+      "group": "Screens",
+      "summary": "หน้าทำข้อสอบ (Arena Quiz / Boss Battle) — โหมดโฟกัส.",
+      "page": true
+    },
+    {
+      "name": "ScreenSettings",
+      "group": "Screens",
+      "summary": "หน้าตั้งค่าการแสดงผล — ผู้ใช้เลือกธีม มืด / สว่าง / ตามอุปกรณ์ จากการ์ดตัวอย่าง.",
+      "page": true
+    },
+    {
+      "name": "ScreenSkillReport",
+      "group": "Screens",
+      "summary": "หน้ารายงานพลัง (Skill Report) — ระบบประมวลผลเลเวลความสามารถและบอกว่าต้องพัฒนาด้านไหน.",
+      "page": true
+    },
+    {
+      "name": "ScreenTutor",
+      "group": "Screens",
+      "summary": "หน้าติวกับพี่โต้ (Smart Socratic Tutor) — โหมดโฟกัส ซ่อนแถบนำทาง.",
+      "page": true
+    },
+    {
+      "name": "StatTile",
+      "group": "Game",
+      "summary": "ช่องสถิติตัวเลขเดี่ยว ใช้ใน Skill Report และ Parent Dashboard"
+    },
+    {
+      "name": "ThemeToggle",
+      "group": "Actions",
+      "summary": "ตัวเลือกธีมของผู้ใช้ 3 ค่า: มืด (Arena), สว่าง (Daylight) และ ตามอุปกรณ์ มีให้ 3 รูปแบบตามที่วาง"
+    },
+    {
+      "name": "TutorBubble",
+      "group": "Learning",
+      "summary": "บับเบิลแชตของโหมดติว — พี่โต้ (ซ้าย) และนักเรียน (ขวา)"
+    },
+    {
+      "name": "XPBar",
+      "group": "Game",
+      "summary": "แถบแสดงความคืบหน้า XP สู่เลเวลถัดไป พร้อมป้ายเลเวลและ tier"
+    }
+  ],
+  "assetGroups": []
+}

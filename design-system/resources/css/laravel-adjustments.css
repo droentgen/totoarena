@@ -1,0 +1,32 @@
+/*
+ * Intentional deviation from the mockup — NOT part of the original design files.
+ *
+ * The mockup is a single-page app: nav items are <button onClick="{{go.x}}">
+ * that swap state client-side. A multi-page Laravel app uses real <a href>
+ * links instead (real URLs, no-JS fallback, correct browser history/back
+ * button) — see partials/sidebar-student.blade.php and sidebar-parent.blade.php.
+ *
+ * prototype.css's interaction rules target `button.ta-nav` specifically, so
+ * they don't match `a.ta-nav`. These rules mirror them 1:1 for the anchor
+ * tag. If the visual result ever looks off, diff against prototype.css's
+ * `button.ta-nav…` rules first — this file should always match them exactly,
+ * just with the selector swapped.
+ */
+a.ta-nav { border: 0; background: transparent; width: 100%; box-sizing: border-box; text-align: left; cursor: pointer; text-decoration: none; }
+a.ta-nav:hover { background: var(--bg-300); color: var(--ink); }
+a.ta-nav.is-on:hover { background: var(--lime-soft); color: var(--lime-text); }
+a.ta-nav:hover .ta-navic { transform: rotate(-6deg) scale(1.06); }
+
+.ta-root[data-theme="light"] .ta-side a.ta-nav { color: #e4f3e8; }
+.ta-root[data-theme="light"] .ta-side a.ta-nav:hover { background: rgba(255, 255, 255, 0.10); color: #ffffff; }
+.ta-root[data-theme="light"] .ta-side a.ta-nav.is-on,
+.ta-root[data-theme="light"] .ta-side a.ta-nav.is-on:hover {
+    background: var(--lime);
+    color: #08160d;
+    font-weight: 700;
+    box-shadow: 0 6px 18px rgba(200, 245, 60, 0.35);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    a.ta-nav:hover .ta-navic { transform: none; }
+}

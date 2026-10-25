@@ -1,0 +1,44 @@
+/*
+ * TOTO Arena — design-system entry stylesheet.
+ * Load order matters: fonts → components (base system) → prototype (refinements/overrides).
+ * Do NOT reorder — prototype.css intentionally overrides components.css by source order.
+ */
+@import url("https://fonts.googleapis.com/css2?family=Anuphan:wght@400;500;600;700&family=Prompt:wght@500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap");
+
+@import "./components.css";
+@import "./prototype.css";
+@import "./laravel-adjustments.css";
+
+/*
+ * Tailwind (optional, utility-only layer for NEW markup).
+ * Never use Tailwind's own color palette for TOTO Arena colors — every
+ * color must come from the --token variables above (see README.md ../../README.md
+ * "ทุกสีต้องมาจากโทเคน"). Tailwind here is for layout/spacing utilities only.
+ */
+@import "tailwindcss";
+
+@theme {
+  --color-bg-000: var(--bg-000);
+  --color-bg-100: var(--bg-100);
+  --color-bg-200: var(--bg-200);
+  --color-bg-300: var(--bg-300);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-ink-faint: var(--ink-faint);
+  --color-lime: var(--lime);
+  --color-on-lime: var(--on-lime);
+  --color-lime-text: var(--lime-text);
+  --color-lime-soft: var(--lime-soft);
+  --color-green: var(--green);
+  --color-green-deep: var(--green-deep);
+  --color-coin: var(--coin);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-warning: var(--warning);
+  --color-info: var(--info);
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+}

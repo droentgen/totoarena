@@ -1,0 +1,1163 @@
+<!doctype html>
+<meta charset="utf-8"><style data-dc-design-system-vars>@layer{:root{--bg-000:#050d08;--bg-100:#0a1610;--bg-200:#102118;--bg-300:#17301f;--line:#244332;--line-strong:#4d8063;--ink:#ecf7ee;--ink-muted:#a3bfad;--ink-faint:#6f8d7a;--lime:#c8f53c;--on-lime:#08160d;--lime-text:#c8f53c;--lime-soft:#1d3311;--green:#22d47b;--on-green:#04140b;--green-deep:#1a5a39;--on-green-deep:#ecf7ee;--coin:#ffc93c;--danger:#ff8a5c;--danger-soft:#3a1c10;--warning:#ffb547;--info:#6fcfff;--tier-bronze:#d6935a;--tier-silver:#c7d2da;--tier-gold:#ffd34d;--tier-diamond:#72e8f6;--tier-mythic:#ff86dd;--focus:#c8f53c;--link:#c8f53c;--shadow-card:0 12px 32px rgba(0,0,0,0.45);--glow-lime:0 0 0 1px rgba(200,245,60,0.35), 0 8px 28px rgba(200,245,60,0.20);--space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-5:24px;--space-6:32px;--space-7:48px;--space-8:64px;--radius-sm:6px;--radius-md:12px;--radius-lg:20px;--radius-pill:999px;--font-display:"Prompt", "Anuphan", system-ui, sans-serif;--font-body:"Anuphan", "IBM Plex Sans Thai", system-ui, sans-serif;--font-mono:"JetBrains Mono", ui-monospace, Menlo, monospace;--text-display-xl:700 56px/64px var(--font-display);--text-display-lg:700 40px/48px var(--font-display);--text-title:600 28px/38px var(--font-display);--text-heading:600 20px/30px var(--font-display);--text-body-lg:400 18px/30px var(--font-body);--text-body:400 16px/26px var(--font-body);--text-body-strong:600 16px/26px var(--font-body);--text-small:400 14px/22px var(--font-body);--text-caption:500 12px/18px var(--font-body);--text-stat:700 32px/36px var(--font-mono);--text-stat-sm:600 16px/20px var(--font-mono);--text-overline:600 11px/16px var(--font-mono);}}</style>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<title>TOTO Arena — ต้นแบบระบบ</title>
+<script src="./vendor/react.js"></script>
+<script src="./vendor/react-dom.js"></script>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/totoarena/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anuphan:wght@400;500;600;700&amp;family=Prompt:wght@500;600;700;800&amp;family=JetBrains+Mono:wght@500;600;700&amp;display=swap">
+<style>
+body{margin:0}
+.ta-root[data-theme="dark"]{--bg-000:#050d08;--bg-100:#0a1610;--bg-200:#102118;--bg-300:#17301f;--line:#244332;--line-strong:#4d8063;--ink:#ecf7ee;--ink-muted:#a3bfad;--ink-faint:#6f8d7a;--lime:#c8f53c;--on-lime:#08160d;--lime-text:#c8f53c;--lime-soft:#1d3311;--green:#22d47b;--on-green:#04140b;--green-deep:#1a5a39;--on-green-deep:#ecf7ee;--coin:#ffc93c;--danger:#ff8a5c;--danger-soft:#3a1c10;--warning:#ffb547;--info:#6fcfff;--tier-bronze:#d6935a;--tier-silver:#c7d2da;--tier-gold:#ffd34d;--tier-diamond:#72e8f6;--tier-mythic:#ff86dd;--focus:#c8f53c;--link:var(--lime-text);--shadow-card:0 12px 32px rgba(0,0,0,0.45);--glow-lime:0 0 0 1px rgba(200,245,60,0.35), 0 8px 28px rgba(200,245,60,0.20)}
+.ta-root[data-theme="light"]{--bg-000:#e9f2e4;--bg-100:#f5faf2;--bg-200:#ffffff;--bg-300:#e4efdd;--line:#cadbc2;--line-strong:#6f8f63;--ink:#0a1d12;--ink-muted:#46604f;--ink-faint:#6b8273;--lime:#c8f53c;--on-lime:#08160d;--lime-text:#3f6b06;--lime-soft:#eefad0;--green:#0b7a41;--on-green:#ffffff;--green-deep:#0f5a35;--on-green-deep:#ffffff;--coin:#8a5a00;--danger:#b93d0a;--danger-soft:#ffeadf;--warning:#8f5200;--info:#035f8f;--tier-bronze:#8f531f;--tier-silver:#56656f;--tier-gold:#876200;--tier-diamond:#0b7280;--tier-mythic:#a8207a;--focus:#3f6b06;--link:var(--lime-text);--shadow-card:0 1px 2px rgba(10,29,18,0.06), 0 8px 24px rgba(10,29,18,0.08);--glow-lime:0 0 0 1px rgba(63,107,6,0.30), 0 6px 20px rgba(63,107,6,0.14)}
+.ta-root{--space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-5:24px;--space-6:32px;--space-7:48px;--space-8:64px;--radius-sm:6px;--radius-md:12px;--radius-lg:20px;--radius-pill:999px;--font-display:"Prompt", "Anuphan", system-ui, sans-serif;--font-body:"Anuphan", "IBM Plex Sans Thai", system-ui, sans-serif;--font-mono:"JetBrains Mono", ui-monospace, Menlo, monospace;background:var(--bg-100);color:var(--ink);font-family:var(--font-body);transition:background-color 200ms ease,color 200ms ease}
+@media (prefers-reduced-motion: reduce){.ta-root{transition:none}}
+.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.i-sm{width:16px;height:16px}
+.i-lg{width:28px;height:28px}
+button{font:inherit;color:inherit}
+button.ta-nav{border:0;background:transparent;width:100%;text-align:left;cursor:pointer}
+button.ta-nav:hover{background:var(--bg-300);color:var(--ink)}
+button.ta-nav.is-on:hover{background:var(--lime-soft);color:var(--lime-text)}
+button.ta-iconbtn,button.ta-chip,button.ta-theme-card,button.ta-opt,button.ta-seg-b,button.ta-profile-pick{cursor:pointer;font:inherit}
+button.ta-chip{border:0}
+button.ta-opt{width:100%;text-align:left;color:var(--ink)}
+button.ta-theme-card{text-align:left;color:var(--ink)}
+button:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.ta-seg-b{border:0;background:transparent;padding:6px 16px;border-radius:8px;font-size:14px;font-weight:500;color:var(--ink-muted);min-height:36px;display:inline-flex;align-items:center;gap:8px}
+.ta-seg-b.is-on{background:var(--lime);color:var(--on-lime);font-weight:700}
+.ta-profile-pick{background:var(--bg-200);border:2px solid var(--line-strong);border-radius:var(--radius-lg);padding:28px 24px;display:flex;flex-direction:column;align-items:center;gap:12px;width:220px;color:var(--ink)}
+.ta-profile-pick:hover{border-color:var(--lime-text);box-shadow:var(--glow-lime)}
+.ta-flash{border:0;cursor:pointer;width:100%;color:var(--ink)}
+.ta-heat{width:18px;height:16px;border-radius:4px;display:inline-block}
+a{color:var(--link)}
+/* colourful menu: icon chips per section, both themes */
+.ta-navic{width:32px;height:32px;border-radius:10px;display:grid;place-items:center;flex:none;color:#08160d;transition:transform 150ms ease}
+.ta-navic .i{width:18px;height:18px}
+button.ta-nav:hover .ta-navic{transform:rotate(-6deg) scale(1.06)}
+.c-lime{background:var(--lime)}.c-blue{background:var(--info)}.c-cyan{background:var(--tier-diamond)}.c-orange{background:var(--danger)}.c-gold{background:var(--coin)}.c-green{background:var(--green)}.c-pink{background:var(--tier-mythic)}.c-amber{background:var(--warning)}.c-silver{background:var(--tier-silver)}
+.ta-nav.is-on .ta-navic{background:#08160d;color:var(--lime)}
+.ta-sidecard{margin-top:auto;border-radius:var(--radius-lg);padding:16px;background:var(--green-deep);color:var(--on-green-deep);position:relative;overflow:hidden}
+.ta-sidecard .ta-xp{background:rgba(0,0,0,.25);border-color:transparent;height:10px}
+/* light theme: deep forest sidebar with lime dot grid so the menu pops */
+.ta-root[data-theme="light"] .ta-side{background-color:#0f4a2d;background-image:radial-gradient(rgba(200,245,60,0.16) 1px,transparent 1.3px);background-size:20px 20px;border-right:0;--ink:#f4fbf1;--ink-muted:#c3dfcb;--line:#2a6a47;--bg-300:#1a5c3a;--lime:#c8f53c;--lime-text:#c8f53c;--lime-soft:#c8f53c;--info:#6fcfff;--danger:#ff8a5c;--coin:#ffc93c;--green:#22d47b;--tier-diamond:#72e8f6;--tier-mythic:#ff86dd;--warning:#ffb547;--tier-silver:#c7d2da;--green-deep:#c8f53c;--on-green-deep:#08160d;--focus:#c8f53c;color:var(--ink)}
+.ta-root[data-theme="light"] .ta-side .ta-nav{color:#e4f3e8}
+.ta-root[data-theme="light"] .ta-side button.ta-nav:hover{background:rgba(255,255,255,0.10);color:#ffffff}
+.ta-root[data-theme="light"] .ta-side .ta-nav.is-on,.ta-root[data-theme="light"] .ta-side button.ta-nav.is-on:hover{background:var(--lime);color:#08160d;font-weight:700;box-shadow:0 6px 18px rgba(200,245,60,0.35)}
+.ta-root[data-theme="light"] .ta-side .ta-avatar{background:#08160d;color:#c8f53c}
+.ta-root[data-theme="light"] .ta-side .ta-sidecard .ta-xp{background:rgba(8,22,13,0.18)}
+.ta-root[data-theme="light"] .ta-topbar{background:#ffffff;border-bottom:3px solid var(--lime)}
+@media (prefers-reduced-motion: reduce){.ta-navic{transition:none}button.ta-nav:hover .ta-navic{transform:none}}
+
+/* ================= GAME LOBBY (login) ================= */
+.lb{position:relative;min-height:100vh;overflow:hidden;background:#040a06;color:#ecf7ee;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 16px 56px;box-sizing:border-box;isolation:isolate}
+.lb-glow{position:absolute;inset:0;z-index:-3;background:radial-gradient(60% 45% at 50% 100%,rgba(200,245,60,0.28),transparent 70%),radial-gradient(40% 35% at 15% 20%,rgba(34,212,123,0.18),transparent 70%),radial-gradient(35% 30% at 85% 25%,rgba(111,207,255,0.14),transparent 70%)}
+.lb-floor{position:absolute;left:-50%;right:-50%;bottom:-10%;height:62%;z-index:-2;transform:perspective(520px) rotateX(62deg);transform-origin:50% 100%;background-image:linear-gradient(rgba(200,245,60,0.30) 1px,transparent 1px),linear-gradient(90deg,rgba(200,245,60,0.30) 1px,transparent 1px);background-size:56px 56px;animation:lbFloor 3.5s linear infinite;mask-image:linear-gradient(to top,#000 30%,transparent 95%);-webkit-mask-image:linear-gradient(to top,#000 30%,transparent 95%)}
+@keyframes lbFloor{from{background-position:0 0,0 0}to{background-position:0 56px,0 0}}
+.lb-rings{position:absolute;left:50%;top:44%;width:min(900px,140vw);height:min(900px,140vw);transform:translate(-50%,-50%);z-index:-2;pointer-events:none}
+.lb-ring{position:absolute;inset:0;border-radius:50%;border:2px dashed rgba(200,245,60,0.22)}
+.lb-ring.r2{inset:12%;border:1px solid rgba(34,212,123,0.25);border-top-color:rgba(200,245,60,0.9);border-right-color:transparent;animation:lbSpin 9s linear infinite}
+.lb-ring.r1{animation:lbSpin 40s linear infinite reverse}
+.lb-ring.r3{inset:24%;border:3px solid transparent;border-bottom-color:rgba(111,207,255,0.6);border-left-color:rgba(111,207,255,0.15);animation:lbSpin 6s linear infinite reverse}
+@keyframes lbSpin{to{transform:rotate(360deg)}}
+.lb-p{position:absolute;bottom:-20px;width:4px;height:4px;border-radius:50%;background:#c8f53c;box-shadow:0 0 10px 2px rgba(200,245,60,0.8);z-index:-1;animation:lbRise linear infinite}
+.lb-p.alt{background:#6fcfff;box-shadow:0 0 10px 2px rgba(111,207,255,0.8)}
+@keyframes lbRise{0%{transform:translateY(0) scale(1);opacity:0}10%{opacity:1}100%{transform:translateY(-105vh) scale(0.3);opacity:0}}
+.lb-season{display:inline-flex;align-items:center;gap:10px;padding:6px 16px;clip-path:polygon(10px 0,100% 0,calc(100% - 10px) 100%,0 100%);background:rgba(200,245,60,0.12);border-top:1px solid rgba(200,245,60,0.5);font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:0.18em;color:#c8f53c;text-transform:uppercase}
+.lb-dot{width:8px;height:8px;border-radius:50%;background:#ff5d5d;box-shadow:0 0 8px #ff5d5d;animation:lbBlink 1.2s steps(2) infinite}
+@keyframes lbBlink{50%{opacity:0.2}}
+.lb-title{position:relative;margin:14px 0 4px;font-family:"Prompt",sans-serif;font-weight:800;font-size:clamp(48px,9vw,104px);line-height:1;letter-spacing:0.02em;text-transform:uppercase;text-align:center;color:#ecf7ee;text-shadow:0 0 28px rgba(200,245,60,0.35);animation:lbIn 900ms cubic-bezier(.2,.9,.2,1.2) both}
+.lb-title b{color:#c8f53c;font-weight:800}
+.lb-title::after{content:"";position:absolute;top:0;bottom:0;width:30%;left:-40%;background:linear-gradient(100deg,transparent,rgba(255,255,255,0.55),transparent);mix-blend-mode:overlay;animation:lbSweep 3.2s ease-in-out infinite 1s}
+@keyframes lbSweep{0%{left:-40%}60%,100%{left:120%}}
+@keyframes lbIn{from{opacity:0;transform:scale(1.25);filter:blur(8px)}to{opacity:1;transform:none;filter:none}}
+.lb-sub{font-size:16px;color:#a3bfad;letter-spacing:0.04em;text-align:center;animation:lbUp 700ms ease both 300ms}
+@keyframes lbUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.lb-cards{display:flex;gap:28px;flex-wrap:wrap;justify-content:center;margin:36px 0 28px}
+.lb-card{position:relative;width:260px;padding:3px;border:0;background:transparent;cursor:pointer;color:#ecf7ee;font:inherit;text-align:center;transition:transform 250ms cubic-bezier(.2,.9,.2,1.3),filter 250ms;animation:lbUp 700ms ease both;--edge:#4d8063;--glow:rgba(200,245,60,0)}
+.lb-card:nth-child(2){animation-delay:150ms}
+.lb-card .lb-frame{position:absolute;inset:0;clip-path:polygon(22px 0,100% 0,100% calc(100% - 22px),calc(100% - 22px) 100%,0 100%,0 22px);background:var(--edge);overflow:hidden}
+.lb-card .lb-frame::before{content:"";position:absolute;left:50%;top:50%;width:200%;height:200%;transform:translate(-50%,-50%);background:conic-gradient(from 0deg,transparent 0 65%,#c8f53c 80%,#6fcfff 90%,transparent 100%);animation:lbSpin 2.6s linear infinite;opacity:0;transition:opacity 250ms}
+.lb-card .lb-inner{position:relative;clip-path:polygon(20px 0,100% 0,100% calc(100% - 20px),calc(100% - 20px) 100%,0 100%,0 20px);background:linear-gradient(180deg,#12281b,#081109 70%);padding:26px 20px 22px;display:flex;flex-direction:column;align-items:center;gap:10px;box-shadow:inset 0 0 60px var(--glow)}
+.lb-card:hover{transform:translateY(-10px)}
+.lb-card:hover .lb-frame::before,.lb-card.is-sel .lb-frame::before{opacity:1}
+.lb-card.is-sel{transform:translateY(-12px) scale(1.06);--glow:rgba(200,245,60,0.22);filter:drop-shadow(0 0 24px rgba(200,245,60,0.45))}
+.lb-card.is-dim{filter:grayscale(0.7) brightness(0.6);transform:scale(0.94)}
+.lb-card:focus-visible{outline:2px solid #c8f53c;outline-offset:6px}
+.lb-emblem{position:relative;width:120px;height:120px;display:grid;place-items:center}
+.lb-emblem .spin{position:absolute;inset:0;animation:lbSpin 12s linear infinite}
+.lb-card.is-sel .lb-emblem .spin{animation-duration:3s}
+.lb-emblem .core{width:84px;height:84px;display:grid;place-items:center;clip-path:polygon(30% 0,70% 0,100% 30%,100% 70%,70% 100%,30% 100%,0 70%,0 30%);background:#1a5a39;font-family:"Prompt",sans-serif;font-weight:800;font-size:26px;color:#c8f53c;animation:lbFloat 3s ease-in-out infinite}
+.lb-emblem .core.alt{background:#17301f;color:#6fcfff}
+@keyframes lbFloat{50%{transform:translateY(-5px)}}
+.lb-name{font-family:"Prompt",sans-serif;font-weight:800;font-size:24px;line-height:28px}
+.lb-rank{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:0.16em;color:#c8f53c;text-transform:uppercase}
+.lb-rank.alt{color:#6fcfff}
+.lb-stats{width:100%;display:flex;flex-direction:column;gap:6px;margin-top:4px}
+.lb-stat{display:grid;grid-template-columns:62px 1fr 36px;gap:8px;align-items:center;font-size:11px;color:#a3bfad;text-align:left}
+.lb-bar{height:6px;background:#17301f;clip-path:polygon(3px 0,100% 0,calc(100% - 3px) 100%,0 100%)}
+.lb-bar i{display:block;height:100%;background:linear-gradient(90deg,#22d47b,#c8f53c);transform-origin:left;animation:lbGrow 1100ms cubic-bezier(.2,.9,.2,1) both 600ms}
+.lb-bar.alt i{background:linear-gradient(90deg,#3aa0d8,#6fcfff)}
+@keyframes lbGrow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.lb-tag{position:absolute;top:14px;right:-6px;padding:3px 12px;background:#c8f53c;color:#08160d;font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:700;letter-spacing:0.14em;clip-path:polygon(8px 0,100% 0,100% 100%,0 100%);animation:lbPop 300ms cubic-bezier(.2,.9,.2,1.5) both}
+@keyframes lbPop{from{transform:scale(0)}to{transform:scale(1)}}
+.lb-panel{display:flex;flex-direction:column;align-items:center;gap:14px;min-height:150px;animation:lbUp 400ms ease both}
+.lb-hint{font-family:"JetBrains Mono",monospace;font-size:13px;letter-spacing:0.2em;color:#c8f53c;text-transform:uppercase;animation:lbPulse 1.6s ease-in-out infinite}
+@keyframes lbPulse{50%{opacity:0.35}}
+.lb-pin{display:flex;gap:14px}
+.lb-pin span{width:16px;height:16px;transform:rotate(45deg);border:2px solid #4d8063;transition:all 150ms}
+.lb-pin span.on{background:#c8f53c;border-color:#c8f53c;box-shadow:0 0 12px rgba(200,245,60,0.8)}
+.lb-keys{display:grid;grid-template-columns:repeat(6,48px);gap:8px}
+.lb-key{height:44px;border:1px solid #2a5a3c;background:rgba(16,33,24,0.85);color:#ecf7ee;font-family:"JetBrains Mono",monospace;font-weight:700;font-size:16px;cursor:pointer;clip-path:polygon(8px 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%,0 8px);transition:background 120ms,transform 80ms}
+.lb-key:hover{background:#1a5a39}
+.lb-key:active{transform:scale(0.92);background:#c8f53c;color:#08160d}
+.lb-go{position:relative;overflow:hidden;border:0;cursor:pointer;padding:16px 56px;min-height:56px;background:#c8f53c;color:#08160d;font-family:"Prompt",sans-serif;font-weight:800;font-size:20px;letter-spacing:0.12em;text-transform:uppercase;clip-path:polygon(18px 0,100% 0,calc(100% - 18px) 100%,0 100%);box-shadow:0 0 30px rgba(200,245,60,0.55);animation:lbBreath 1.8s ease-in-out infinite}
+.lb-go::after{content:"";position:absolute;top:0;bottom:0;width:40%;left:-60%;background:linear-gradient(100deg,transparent,rgba(255,255,255,0.75),transparent);animation:lbSweep 1.8s ease-in-out infinite}
+.lb-go[disabled]{background:#24402f;color:#6f8d7a;box-shadow:none;animation:none;cursor:not-allowed}
+.lb-go[disabled]::after{display:none}
+.lb-go:focus-visible{outline:2px solid #ecf7ee;outline-offset:4px}
+@keyframes lbBreath{50%{box-shadow:0 0 50px rgba(200,245,60,0.85)}}
+.lb-foot{position:absolute;bottom:14px;left:0;right:0;display:flex;justify-content:space-between;padding:0 24px;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:0.12em;color:#6f8d7a;text-transform:uppercase;flex-wrap:wrap;gap:8px}
+.lb-load{position:absolute;inset:0;z-index:5;background:rgba(4,10,6,0.92);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;animation:lbFade 250ms ease both}
+@keyframes lbFade{from{opacity:0}to{opacity:1}}
+.lb-load-title{font-family:"Prompt",sans-serif;font-weight:800;font-size:clamp(28px,5vw,44px);letter-spacing:0.08em;text-transform:uppercase;animation:lbIn 600ms cubic-bezier(.2,.9,.2,1.2) both}
+.lb-load-bar{width:min(440px,80vw);height:10px;background:#17301f;clip-path:polygon(6px 0,100% 0,calc(100% - 6px) 100%,0 100%)}
+.lb-load-bar i{display:block;height:100%;background:linear-gradient(90deg,#22d47b,#c8f53c);transform-origin:left;animation:lbGrow 1600ms cubic-bezier(.6,.1,.3,1) both}
+.lb-tip{font-size:14px;color:#a3bfad;max-width:440px;text-align:center}
+@media (prefers-reduced-motion: reduce){.lb *, .lb *::before, .lb *::after{animation:none !important;transition:none !important}}
+/* ================= AUTH / ONBOARDING ================= */
+.au{min-height:100vh;display:flex;flex-direction:column}
+.au-top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:14px clamp(16px,3vw,32px);border-bottom:1px solid var(--line);background:var(--bg-000)}
+.au-wrap{flex:1;display:flex;justify-content:center;align-items:flex-start;padding:40px 16px 56px}
+.au-card{width:100%;max-width:460px;box-sizing:border-box;background:var(--bg-200);border:1px solid var(--line);border-radius:var(--radius-lg);box-shadow:var(--shadow-card);padding:28px;display:flex;flex-direction:column;gap:16px}
+.au-card.wide{max-width:640px}
+.au-h{margin:0;font-family:var(--font-display);font-weight:700;font-size:26px;line-height:36px}
+.au-field{display:flex;flex-direction:column;gap:6px;font-size:14px;line-height:20px;font-weight:600}
+.au-input{width:100%;box-sizing:border-box;min-height:48px;border:1px solid var(--line-strong);border-radius:var(--radius-md);background:var(--bg-100);color:var(--ink);padding:10px 14px;font:inherit;font-weight:400;font-size:16px}
+.au-input::placeholder{color:var(--ink-faint)}
+.au-input:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.au-otp{font-family:var(--font-mono);font-size:28px;letter-spacing:0.5em;text-align:center}
+.au-google{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:48px;border:1px solid var(--line-strong);border-radius:var(--radius-md);background:var(--bg-100);color:var(--ink);font-weight:600;font-size:16px;cursor:pointer}
+.au-google:hover{background:var(--bg-300)}
+.au-google[disabled]{cursor:progress;color:var(--ink-muted)}
+.au-g{width:26px;height:26px;border-radius:999px;display:grid;place-items:center;background:var(--bg-300);border:1px solid var(--line-strong);font-family:var(--font-display);font-weight:800;font-size:14px}
+.au-or{display:flex;align-items:center;gap:12px;color:var(--ink-muted);font-size:13px}
+.au-or::before,.au-or::after{content:"";flex:1;height:1px;background:var(--line)}
+.au-check{display:grid;grid-template-columns:22px 1fr;gap:10px;align-items:start;font-size:14px;line-height:22px;cursor:pointer}
+.au-check input{width:20px;height:20px;margin:1px 0 0;accent-color:var(--lime)}
+.au-link{border:0;background:transparent;color:var(--lime-text);font:inherit;font-weight:600;font-size:14px;cursor:pointer;padding:4px 2px;min-height:32px;text-decoration:underline;text-underline-offset:3px}
+.au-u{color:var(--lime-text);font-weight:600;text-decoration:underline;text-underline-offset:3px}
+.au-steps{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
+.au-step{display:flex;flex-direction:column;gap:6px;font-size:12px;line-height:16px;color:var(--ink-muted)}
+.au-step i{display:block;height:6px;border-radius:999px;background:var(--bg-300)}
+.au-step.done i{background:var(--green)}
+.au-step.on i{background:var(--lime)}
+.au-step.on{color:var(--ink);font-weight:600}
+.au-pick{width:100%;box-sizing:border-box;border:2px solid var(--line-strong);border-radius:var(--radius-md);background:var(--bg-100);padding:12px 16px;text-align:left;cursor:pointer;color:var(--ink);display:flex;flex-direction:column;gap:2px;font:inherit}
+.au-pick:hover{border-color:var(--lime-text)}
+.au-pick.is-on{border-color:var(--lime-text);background:var(--lime-soft)}
+.lb-link{margin-top:20px;min-height:44px;padding:10px 22px;border:1px solid rgba(200,245,60,0.5);background:rgba(8,22,13,0.7);color:#c8f53c;font:inherit;font-size:14px;font-weight:600;cursor:pointer;clip-path:polygon(10px 0,100% 0,calc(100% - 10px) 100%,0 100%)}
+.lb-link:hover{background:rgba(26,90,57,0.8)}
+.lb-link:focus-visible{outline:2px solid #c8f53c;outline-offset:4px}
+/* citations + sourcing */
+.cite{border:1px solid var(--line-strong);background:var(--bg-200);color:var(--lime-text);font:inherit;font-family:var(--font-mono);font-size:12px;font-weight:700;border-radius:6px;padding:0 7px;min-width:28px;min-height:26px;cursor:pointer;margin-left:4px;vertical-align:1px}
+.cite.is-on{background:var(--lime);color:var(--on-lime);border-color:transparent}
+.job-step{display:grid;grid-template-columns:26px 1fr;gap:10px;align-items:center;font-size:14px;line-height:22px;color:var(--ink-muted)}
+.job-step b{width:22px;height:22px;border-radius:999px;border:2px solid var(--line-strong);display:grid;place-items:center;font-size:11px;box-sizing:border-box}
+.job-step.done{color:var(--ink)}
+.job-step.done b{background:var(--lime);border-color:transparent;color:var(--on-lime)}
+.job-step.now{color:var(--ink);font-weight:600}
+.job-step.now b{border-color:var(--lime-text);animation:lbPulse 1s ease-in-out infinite}
+.qr{display:grid;grid-template-columns:repeat(21,6px);padding:10px;background:#ffffff;border-radius:8px;width:max-content}
+.qr span{width:6px;height:6px}
+.qr span.on{background:#08160d}
+@media (prefers-reduced-motion: reduce){.job-step.now b{animation:none}}
+</style>
+</helmet>
+
+<div class="ta-root" data-theme="{{theme}}" style="min-height: 100vh;">
+
+<!-- ================= AUTH: สมัครสมาชิก / เข้าสู่ระบบ / Onboarding ================= -->
+<sc-if value="{{isAuth}}" hint-placeholder-val="{{ true }}">
+<div class="au ta-dots">
+<header class="au-top">
+<div class="ta-row" style="gap: 10px;"><div class="ta-logo" style="padding: 0;"><b>TOTO</b> Arena</div><span class="caption ta-muted">สำหรับผู้ปกครอง</span></div>
+<div class="ta-row" style="gap: 8px;">
+<button class="ta-btn ta-btn--ghost ta-btn--sm" onClick="{{toLobby}}" style="border: 0;">นักเรียน? เข้าด้วยโปรไฟล์</button>
+<button class="ta-iconbtn" onClick="{{toggleTheme}}" aria-label="{{themeAria}}" title="{{themeAria}}" style="color: var(--lime-text);"><sc-if value="{{isDark}}" hint-placeholder-val="{{ true }}"><svg class="i i-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"></path></svg></sc-if><sc-if value="{{isLight}}" hint-placeholder-val="{{ false }}"><svg class="i i-sm" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg></sc-if></button>
+</div>
+</header>
+<div class="au-wrap">
+
+<!-- step: form (sign up / log in) -->
+<sc-if value="{{au.form}}" hint-placeholder-val="{{ true }}">
+<div class="au-card">
+<div class="ta-seg" role="tablist" aria-label="สมัครหรือเข้าสู่ระบบ" style="display: grid; grid-template-columns: 1fr 1fr;">
+<button class="{{au.tabSignup}}" onClick="{{au.toSignup}}" role="tab" aria-selected="{{au.signupSel}}" style="justify-content: center;">สมัครสมาชิก</button>
+<button class="{{au.tabLogin}}" onClick="{{au.toLogin}}" role="tab" aria-selected="{{au.loginSel}}" style="justify-content: center;">เข้าสู่ระบบ</button>
+</div>
+<div><h1 class="au-h">{{au.heading}}</h1><p class="small ta-muted" style="margin: 4px 0 0;">{{au.sub}}</p></div>
+<button class="au-google" onClick="{{au.google}}" disabled="{{au.gLoading}}"><span class="au-g" aria-hidden="true">G</span>{{au.gLabel}}</button>
+<div class="au-or">หรือใช้อีเมล</div>
+<sc-if value="{{au.isSignup}}" hint-placeholder-val="{{ true }}"><label class="au-field">ชื่อ–นามสกุลผู้ปกครอง<input class="au-input" type="text" autocomplete="name" placeholder="เช่น สมชาย ใจดี"></label></sc-if>
+<label class="au-field">อีเมล<input class="au-input" type="email" autocomplete="email" placeholder="you@example.com"></label>
+<label class="au-field">รหัสผ่าน<input class="au-input" type="password" autocomplete="{{au.pwAuto}}" placeholder="{{au.pwPh}}"></label>
+<sc-if value="{{au.isSignup}}" hint-placeholder-val="{{ true }}"><div class="ta-col" style="gap: 6px;"><div class="ta-mbar-t"><i style="width: 70%;"></i></div><span class="caption ta-muted">ความแข็งแรง: ดี · ยาวอย่างน้อย 8 ตัว และไม่อยู่ในรายการรหัสที่เคยรั่วไหล</span></div></sc-if>
+<sc-if value="{{au.isLogin}}" hint-placeholder-val="{{ false }}"><button class="au-link" style="align-self: flex-end;">ลืมรหัสผ่าน?</button></sc-if>
+<button class="ta-btn ta-btn--primary" onClick="{{au.submit}}" style="justify-content: center;">{{au.cta}}</button>
+<p class="small ta-muted" style="margin: 0; text-align: center;">{{au.foot}} <button class="au-link" onClick="{{au.swap}}">{{au.swapLabel}}</button></p>
+</div>
+</sc-if>
+
+<!-- step: verify email (OTP) -->
+<sc-if value="{{au.otp}}" hint-placeholder-val="{{ false }}">
+<div class="au-card">
+<span class="ta-ic-circle"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18v12H3z"></path><path d="m3 7 9 6 9-6"></path></svg></span>
+<div><h1 class="au-h">ยืนยันอีเมลของคุณ</h1><p class="small ta-muted" style="margin: 4px 0 0;">ส่งรหัส 6 หลักไปที่ <b style="color: var(--ink);">parent@example.com</b> แล้ว รหัสใช้ได้ 15 นาที (หรือกดลิงก์ในอีเมลเดียวกันก็ได้)</p></div>
+<label class="au-field">รหัสยืนยัน<input class="au-input au-otp" type="text" inputmode="numeric" maxlength="6" autocomplete="one-time-code" placeholder="••••••"></label>
+<button class="ta-btn ta-btn--primary" onClick="{{au.verify}}" style="justify-content: center;">ยืนยันอีเมล</button>
+<div class="ta-row" style="justify-content: space-between;"><span class="caption ta-muted">ส่งรหัสใหม่ได้ใน 0:48</span><button class="au-link" onClick="{{au.back}}">แก้อีเมล</button></div>
+</div>
+</sc-if>
+
+<!-- step: terms + consent (shared by email and Google) -->
+<sc-if value="{{au.consent}}" hint-placeholder-val="{{ false }}">
+<div class="au-card">
+<sc-if value="{{au.viaGoogle}}" hint-placeholder-val="{{ false }}"><div class="ta-card ta-row" style="background: var(--lime-soft); border-color: var(--lime-text); padding: 12px 16px; gap: 12px; flex-wrap: nowrap;"><span class="au-g" aria-hidden="true">G</span><div><div class="body-strong ta-lime">เชื่อมกับ Google แล้ว</div><div class="small">parent@example.com · Google ยืนยันอีเมลให้แล้ว ไม่ต้องรอรหัส</div></div></div></sc-if>
+<sc-if value="{{au.viaEmail}}" hint-placeholder-val="{{ true }}"><div class="ta-card ta-row" style="background: var(--lime-soft); border-color: var(--lime-text); padding: 12px 16px; gap: 12px; flex-wrap: nowrap;"><span class="ta-lime" style="display: inline-flex;"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5 10 17l9-10"></path></svg></span><div><div class="body-strong ta-lime">ยืนยันอีเมลแล้ว</div><div class="small">parent@example.com</div></div></div></sc-if>
+<div><h1 class="au-h">ข้อตกลงและความยินยอม</h1><p class="small ta-muted" style="margin: 4px 0 0;">น้องเป็นผู้เยาว์ ระบบจึงต้องได้ความยินยอมจากผู้ปกครองก่อนเก็บข้อมูลการเรียน</p></div>
+<label class="au-check"><input type="checkbox" checked="{{au.c1}}" onChange="{{au.t1}}"><span>ยอมรับ <span class="au-u">ข้อกำหนดการใช้งาน</span> และ <span class="au-u">นโยบายความเป็นส่วนตัว</span></span></label>
+<label class="au-check"><input type="checkbox" checked="{{au.c2}}" onChange="{{au.t2}}"><span>ในฐานะผู้ปกครอง ยินยอมให้ระบบประมวลผลข้อมูลการเรียนของบุตร (คะแนน เวลาใช้งาน ข้อความติว) เพื่อใช้ในบัญชีครอบครัวนี้เท่านั้น</span></label>
+<label class="au-check"><input type="checkbox" checked="{{au.c3}}" onChange="{{au.t3}}"><span class="ta-muted">รับเคล็ดลับการเรียนทางอีเมล (ไม่บังคับ)</span></label>
+<button class="ta-btn ta-btn--primary" onClick="{{au.agree}}" disabled="{{au.cantAgree}}" style="justify-content: center;">ยอมรับและตั้งค่าครอบครัว</button>
+<span class="caption ta-muted">ระบบบันทึกเวอร์ชันเอกสารและเวลาที่ยินยอมไว้เป็นหลักฐาน ถอนความยินยอมได้ที่ ตั้งค่า › ความปลอดภัย</span>
+</div>
+</sc-if>
+
+<!-- step: onboarding wizard -->
+<sc-if value="{{au.onboard}}" hint-placeholder-val="{{ false }}">
+<div class="au-card wide">
+<div class="au-steps" role="list" aria-label="{{ob.aria}}"><sc-for list="{{ob.steps}}" as="st" hint-placeholder-count="5"><div class="{{st.cls}}" role="listitem"><i></i><span>{{st.label}}</span></div></sc-for></div>
+
+<sc-if value="{{ob.s0}}" hint-placeholder-val="{{ true }}">
+<div class="ta-col" style="gap: 14px;"><div><h1 class="au-h">ตั้งชื่อครอบครัว</h1><p class="small ta-muted" style="margin: 4px 0 0;">ชื่อนี้แสดงบนหน้าเลือกผู้เล่น และในอีเมลรายงานประจำสัปดาห์</p></div>
+<label class="au-field">ชื่อครอบครัว<input class="au-input" type="text" placeholder="บ้านกล้าหาญ"></label></div>
+</sc-if>
+
+<sc-if value="{{ob.s1}}" hint-placeholder-val="{{ false }}">
+<div class="ta-col" style="gap: 14px;"><div><h1 class="au-h">สร้างโปรไฟล์ลูกคนแรก</h1><p class="small ta-muted" style="margin: 4px 0 0;">น้องไม่ต้องมีอีเมล ใช้ PIN ที่ตั้งตรงนี้เข้า Arena · เพิ่มลูกคนอื่นได้ภายหลังในตั้งค่า</p></div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px;">
+<label class="au-field">ชื่อเล่น<input class="au-input" type="text" placeholder="กล้าหาญ"></label>
+<label class="au-field">PIN 4–6 หลัก<input class="au-input" type="password" inputmode="numeric" maxlength="6" autocomplete="new-password" placeholder="••••"></label>
+</div>
+<div><div class="au-field" style="margin-bottom: 6px;">ชั้นเรียน</div><div class="ta-row" style="gap: 6px;" role="radiogroup" aria-label="ชั้นเรียน"><sc-for list="{{ob.grades}}" as="g" hint-placeholder-count="6"><button class="{{g.cls}}" onClick="{{g.pick}}" role="radio" aria-checked="{{g.on}}" style="padding: 8px 14px; font-size: 14px; min-height: 40px;">{{g.label}}</button></sc-for></div></div>
+<div class="caption ta-muted">{{ob.gradeNote}} · ใส่ PIN ผิด 5 ครั้งระบบล็อก 15 นาทีและแจ้งคุณ</div></div>
+</sc-if>
+
+<sc-if value="{{ob.s2}}" hint-placeholder-val="{{ false }}">
+<div class="ta-col" style="gap: 14px;"><div><h1 class="au-h">เวลาใช้งาน</h1><p class="small ta-muted" style="margin: 4px 0 0;">ปรับได้ตลอดในตั้งค่า ข้ามได้ถ้ายังไม่แน่ใจ</p></div>
+<div><div class="au-field" style="margin-bottom: 6px;">ใช้งานได้สูงสุดต่อวัน</div><div class="ta-seg" role="radiogroup" aria-label="เวลาสูงสุดต่อวัน"><sc-for list="{{ob.limits}}" as="l" hint-placeholder-count="4"><button class="{{l.cls}}" onClick="{{l.pick}}" role="radio" aria-checked="{{l.on}}">{{l.label}}</button></sc-for></div></div>
+<label class="au-check"><input type="checkbox" checked="{{ob.curfew}}" onChange="{{ob.toggleCurfew}}"><span>ห้ามใช้หลัง 22:00 <span class="ta-muted">(ถ้าเปิดใช้นอกเวลา ระบบบันทึกและแจ้งคุณ)</span></span></label>
+<label class="au-check"><input type="checkbox" checked="{{ob.line}}" onChange="{{ob.toggleLine}}"><span>ส่งสรุปรายสัปดาห์ทาง LINE ด้วย <span class="ta-muted">(ค่าเริ่มต้นส่งทางอีเมล)</span></span></label></div>
+</sc-if>
+
+<sc-if value="{{ob.s3}}" hint-placeholder-val="{{ false }}">
+<div class="ta-col" style="gap: 14px;"><div><h1 class="au-h">ธีมของคุณ</h1><p class="small ta-muted" style="margin: 4px 0 0;">เป็นค่าของผู้ปกครองเท่านั้น น้องเลือกธีมของตัวเองได้ (ค่าเริ่มต้นของน้องคือ มืด)</p></div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px;" role="radiogroup" aria-label="ธีม">
+<button class="{{ob.thSystem}}" onClick="{{setSystem}}" role="radio" aria-checked="{{tcA.system}}"><span class="body-strong">ตามอุปกรณ์</span><span class="small ta-muted">แนะนำสำหรับผู้ปกครอง</span></button>
+<button class="{{ob.thLight}}" onClick="{{setLight}}" role="radio" aria-checked="{{tcA.light}}"><span class="body-strong">สว่าง · Daylight</span><span class="small ta-muted">อ่านรายงานสบายตา</span></button>
+<button class="{{ob.thDark}}" onClick="{{setDark}}" role="radio" aria-checked="{{tcA.dark}}"><span class="body-strong">มืด · Arena</span><span class="small ta-muted">โทนเดียวกับของน้อง</span></button>
+</div></div>
+</sc-if>
+
+<sc-if value="{{ob.s4}}" hint-placeholder-val="{{ false }}">
+<div class="ta-col" style="gap: 14px;"><div><h1 class="au-h">เริ่มต้นเนื้อหาแรก</h1><p class="small ta-muted" style="margin: 4px 0 0;">ยังไม่มีชีทก็เริ่มได้ ระบบสร้างสรุปจากหลักสูตรและแหล่งทางการให้ แล้วให้คุณตรวจก่อน</p></div>
+<div class="ta-col" style="gap: 10px;" role="radiogroup" aria-label="เนื้อหาแรก">
+<button class="{{ob.fcCurr}}" onClick="{{ob.pickCurr}}" role="radio" aria-checked="{{ob.fcCurrOn}}"><span class="body-strong">สร้างสรุปจากหลักสูตร <span class="ta-chip ta-chip--lime">แนะนำ</span></span><span class="small ta-muted">เลือกบท แล้วระบบค้นจากแหล่ง T1 (สพฐ. สสวท.) มาสรุปเป็นภาษาไทยพร้อมอ้างอิง</span></button>
+<button class="{{ob.fcUpload}}" onClick="{{ob.pickUpload}}" role="radio" aria-checked="{{ob.fcUploadOn}}"><span class="body-strong">อัปโหลดชีทของโรงเรียน</span><span class="small ta-muted">PDF รูปถ่าย หรือสไลด์ · ตรงกับที่ครูสอนที่สุด</span></button>
+</div>
+<div class="ta-card ta-row" style="background: var(--bg-300); border-color: var(--line-strong); gap: 12px; flex-wrap: nowrap;"><span style="color: var(--info); display: inline-flex;"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"></path></svg></span><div class="small"><b>แนะนำ:</b> เปิดการยืนยันสองขั้น (แอป Authenticator) ได้ที่ ตั้งค่า › ความปลอดภัย เพื่อป้องกันบัญชีที่มีข้อมูลของลูก</div></div></div>
+</sc-if>
+
+<div class="ta-row" style="justify-content: space-between; border-top: 1px solid var(--line); padding-top: 16px;">
+<button class="ta-btn ta-btn--secondary ta-btn--sm" onClick="{{ob.back}}" disabled="{{ob.isFirst}}">ย้อนกลับ</button>
+<div class="ta-row" style="gap: 8px;"><sc-if value="{{ob.canSkip}}" hint-placeholder-val="{{ false }}"><button class="ta-btn ta-btn--ghost ta-btn--sm" onClick="{{ob.next}}" style="border: 0;">ข้ามขั้นนี้</button></sc-if><button class="ta-btn ta-btn--primary ta-btn--sm" onClick="{{ob.next}}">{{ob.nextLabel}}</button></div>
+</div>
+</div>
+</sc-if>
+
+</div>
+</div>
+</sc-if>
+
+<!-- ================= LOGIN / PROFILE PICKER ================= -->
+<sc-if value="{{isLogin}}" hint-placeholder-val="{{ false }}">
+<div class="lb" style="font-family: 'Anuphan', system-ui, sans-serif;">
+<div class="lb-glow" aria-hidden="true"></div>
+<div class="lb-floor" aria-hidden="true"></div>
+<div class="lb-rings" aria-hidden="true"><div class="lb-ring r1"></div><div class="lb-ring r2"></div><div class="lb-ring r3"></div></div>
+<sc-for list="{{particles}}" as="p" hint-placeholder-count="0"><span class="{{p.cls}}" style="left: {{p.x}}; animation-duration: {{p.t}}; animation-delay: {{p.d}};" aria-hidden="true"></span></sc-for>
+
+<div class="lb-season"><span class="lb-dot"></span>Season 1 · เทอม 2/2569 · Live</div>
+<h1 class="lb-title"><b>TOTO</b> Arena</h1>
+<p class="lb-sub" style="margin: 0;">สนามประลองความรู้ ม.1–ม.6 — เลือกผู้เล่นเพื่อเข้าสู่สนาม</p>
+
+<div class="lb-cards" role="radiogroup" aria-label="เลือกผู้เล่น">
+<button class="{{lb.studentCls}}" onClick="{{pickStudent}}" role="radio" aria-checked="{{lb.studentOn}}">
+<span class="lb-frame" aria-hidden="true"></span>
+<span class="lb-inner">
+<sc-if value="{{lb.studentSel}}" hint-placeholder-val="{{ false }}"><span class="lb-tag">READY</span></sc-if>
+<span class="lb-emblem">
+<svg class="spin" viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="56" fill="none" stroke="#c8f53c" stroke-width="2" stroke-dasharray="18 10"></circle><circle cx="60" cy="60" r="50" fill="none" stroke="#22d47b" stroke-opacity="0.5" stroke-width="1"></circle><path d="M60 0 l5 8 h-10 z M60 120 l5 -8 h-10 z M0 60 l8 5 v-10 z M120 60 l-8 5 v-10 z" fill="#c8f53c"></path></svg>
+<span class="core">กล้า</span>
+</span>
+<span class="lb-name">กล้าหาญ</span>
+<span class="lb-rank">LV 18 · TOTO Challenger</span>
+<span class="lb-stats">
+<span class="lb-stat"><span>XP</span><span class="lb-bar"><i style="width: 73%;"></i></span><span>73%</span></span>
+<span class="lb-stat"><span>STREAK</span><span class="lb-bar"><i style="width: 40%;"></i></span><span>12d</span></span>
+<span class="lb-stat"><span>CRESTS</span><span class="lb-bar"><i style="width: 28%;"></i></span><span>7</span></span>
+</span>
+<span class="ta-chip" style="background: rgba(200,245,60,0.12); color: #c8f53c;">PLAYER · นักเรียน</span>
+</span>
+</button>
+<button class="{{lb.parentCls}}" onClick="{{pickParent}}" role="radio" aria-checked="{{lb.parentOn}}">
+<span class="lb-frame" aria-hidden="true"></span>
+<span class="lb-inner">
+<sc-if value="{{lb.parentSel}}" hint-placeholder-val="{{ false }}"><span class="lb-tag" style="background: #6fcfff;">READY</span></sc-if>
+<span class="lb-emblem">
+<svg class="spin" viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="56" fill="none" stroke="#6fcfff" stroke-width="2" stroke-dasharray="6 8"></circle><circle cx="60" cy="60" r="50" fill="none" stroke="#6fcfff" stroke-opacity="0.35" stroke-width="1"></circle><path d="M60 0 l5 8 h-10 z M60 120 l5 -8 h-10 z" fill="#6fcfff"></path></svg>
+<span class="core alt">พ่อ</span>
+</span>
+<span class="lb-name">ผู้ปกครอง</span>
+<span class="lb-rank alt">Guardian · Parent Console</span>
+<span class="lb-stats">
+<span class="lb-stat"><span>ชีทในคลัง</span><span class="lb-bar alt"><i style="width: 62%;"></i></span><span>14</span></span>
+<span class="lb-stat"><span>ข้อสอบ</span><span class="lb-bar alt"><i style="width: 80%;"></i></span><span>136</span></span>
+<span class="lb-stat"><span>รออนุมัติ</span><span class="lb-bar alt"><i style="width: 15%;"></i></span><span>1</span></span>
+</span>
+<span class="ta-chip" style="background: rgba(111,207,255,0.12); color: #6fcfff;">ADMIN · ผู้ปกครอง</span>
+</span>
+</button>
+</div>
+
+<div class="lb-panel">
+<sc-if value="{{lb.none}}" hint-placeholder-val="{{ true }}"><span class="lb-hint">▲ แตะการ์ดเพื่อเลือกผู้เล่น ▲</span></sc-if>
+<sc-if value="{{lb.studentSel}}" hint-placeholder-val="{{ false }}">
+<div class="ta-col" style="align-items: center; gap: 14px;">
+<span class="lb-hint" style="animation: none;">ใส่ PIN 4 หลัก</span>
+<div class="lb-pin" aria-label="{{lb.pinAria}}"><sc-for list="{{lb.dots}}" as="dt" hint-placeholder-count="4"><span class="{{dt.cls}}"></span></sc-for></div>
+<div class="lb-keys"><sc-for list="{{lb.keys}}" as="k" hint-placeholder-count="12"><button class="lb-key" onClick="{{k.press}}" aria-label="{{k.aria}}">{{k.label}}</button></sc-for></div>
+<button class="lb-go" onClick="{{enterArena}}" disabled="{{lb.locked}}">Enter Arena</button>
+</div>
+</sc-if>
+<sc-if value="{{lb.parentSel}}" hint-placeholder-val="{{ false }}">
+<div class="ta-col" style="align-items: center; gap: 14px;">
+<span class="lb-hint" style="animation: none; color: #6fcfff;">ยืนยันตัวตนด้วยอีเมลแล้ว</span>
+<button class="lb-go" onClick="{{enterArena}}" style="background: #6fcfff; box-shadow: 0 0 30px rgba(111,207,255,0.55);">เข้าสู่ Console</button>
+</div>
+</sc-if>
+</div>
+
+<button class="lb-link" onClick="{{toAuth}}">ผู้ปกครองใหม่? สมัครสมาชิก หรือเข้าสู่ระบบด้วยอีเมล / Google</button>
+
+<div class="lb-foot"><span>Players online · 3</span><span>Server · TH-01 · 24 ms</span><span>v0.1 prototype</span></div>
+
+<sc-if value="{{lb.entering}}" hint-placeholder-val="{{ false }}">
+<div class="lb-load" role="status" aria-live="polite">
+<div class="lb-season"><span class="lb-dot"></span>{{lb.loadMode}}</div>
+<div class="lb-load-title">{{lb.loadTitle}}</div>
+<div class="lb-load-bar"><i></i></div>
+<div class="lb-tip"><b style="color: #c8f53c;">TIP</b> · {{lb.tip}}</div>
+</div>
+</sc-if>
+</div>
+</sc-if>
+
+<!-- ================= APP SHELL ================= -->
+<sc-if value="{{isApp}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-wrap: wrap; min-height: 100vh;">
+
+<!-- ---------- sidebar: student ---------- -->
+<sc-if value="{{isStudent}}" hint-placeholder-val="{{ true }}">
+<aside class="ta-side" style="flex: 1 1 232px; box-sizing: border-box;">
+<div class="ta-logo"><b>TOTO</b> Arena</div>
+<div class="ta-profile"><div class="ta-avatar" style="width: 44px; height: 44px; border: 2px solid var(--lime-text);">กล้า</div><div><div class="body-strong" style="line-height: 20px;">กล้าหาญ</div><div class="caption ta-lime">TOTO Challenger</div></div></div>
+<nav aria-label="เมนูหลัก" style="display: flex; flex-direction: column; gap: 4px;">
+<button class="{{nav.home}}" onClick="{{go.home}}"><span class="ta-navic c-lime"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5V21h-6v-6H9v6H3z"></path></svg></span>Arena Home</button>
+<button class="{{nav.learn}}" onClick="{{go.learn}}"><span class="ta-navic c-cyan"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2z"></path><path d="M22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7z"></path></svg></span>เรียน</button>
+<button class="{{nav.tutor}}" onClick="{{go.tutor}}"><span class="ta-navic c-blue"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"></path></svg></span>ติวกับพี่โต้</button>
+<button class="{{nav.quiz}}" onClick="{{go.quiz}}"><span class="ta-navic c-orange"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="5"></circle><circle cx="12" cy="12" r="1"></circle></svg></span>สนามสอบ</button>
+<button class="{{nav.quests}}" onClick="{{go.quests}}"><span class="ta-navic c-amber"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 21V4h11l-2 4 2 4H5"></path></svg></span>ภารกิจ</button>
+<button class="{{nav.report}}" onClick="{{go.report}}"><span class="ta-navic c-green"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"></path></svg></span>รายงานพลัง</button>
+<button class="{{nav.hof}}" onClick="{{go.hof}}"><span class="ta-navic c-gold"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"></path><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"></path></svg></span>Hall of Fame</button>
+<button class="{{nav.shop}}" onClick="{{go.shop}}"><span class="ta-navic c-pink"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9h18l-1.5 11h-15z"></path><path d="M8 9V6a4 4 0 0 1 8 0v3"></path></svg></span>ร้าน TOTON</button>
+<button class="{{nav.settings}}" onClick="{{go.settings}}"><span class="ta-navic c-silver"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1 7 17M17 7l2.1-2.1"></path></svg></span>ตั้งค่า</button>
+</nav>
+<div class="ta-sidecard" style="margin-top: 24px;">
+<svg viewBox="0 0 60 60" width="60" height="60" aria-hidden="true" style="position: absolute; right: -6px; top: -6px; opacity: 0.35;"><path d="M10 34 l20 -14 l20 14 v8 l-20 -14 l-20 14 z" fill="currentColor"></path><path d="M10 50 l20 -14 l20 14 v8 l-20 -14 l-20 14 z" fill="currentColor"></path></svg>
+<div style="font-family: var(--font-display); font-weight: 800; font-size: 22px; line-height: 28px;">LV 18</div>
+<div class="caption" style="opacity: 0.85;">TOTO Challenger</div>
+<div class="ta-xp" style="margin: 10px 0 6px;"><i style="width: {{xpPct}};"></i></div>
+<div class="caption">อีก {{xpLeft}} XP ขึ้นเลเวล</div>
+</div>
+<button class="ta-nav" onClick="{{logout}}" style="margin-top: 12px;"><span class="ta-navic" style="background: transparent; color: inherit;"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4h4v16h-4M10 8l-4 4 4 4M6 12h10"></path></svg></span>สลับผู้ใช้</button>
+</aside>
+</sc-if>
+
+<!-- ---------- sidebar: parent ---------- -->
+<sc-if value="{{isParent}}" hint-placeholder-val="{{ false }}">
+<aside class="ta-side" style="flex: 1 1 232px; box-sizing: border-box;">
+<div class="ta-logo"><b>TOTO</b> Arena</div>
+<div class="ta-muted" style="font-size: 12px; padding: 0 12px 16px; margin-top: -16px;">Parent Console</div>
+<nav aria-label="เมนูผู้ปกครอง" style="display: flex; flex-direction: column; gap: 4px;">
+<button class="{{nav.pdash}}" onClick="{{go.pdash}}"><span class="ta-navic c-lime"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5V21h-6v-6H9v6H3z"></path></svg></span>ภาพรวม &amp; กิจกรรม</button>
+<button class="{{nav.pcontent}}" onClick="{{go.pcontent}}"><span class="ta-navic c-cyan"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h6l2 2h10v12H3z"></path></svg></span>คลังเนื้อหา &amp; ข้อสอบ</button>
+<button class="{{nav.psource}}" onClick="{{go.psource}}"><span class="ta-navic c-blue"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l1.8 4.7L18.5 9l-4.7 1.8L12 15.5l-1.8-4.7L5.5 9l4.7-1.3z"></path><path d="M5 18h14M8 21h8"></path></svg></span>สร้างสรุป &amp; คิวตรวจ</button>
+<button class="{{nav.preward}}" onClick="{{go.preward}}"><span class="ta-navic c-pink"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9h18v4H3zM5 13h14v8H5zM12 9v12"></path></svg></span>ร้านรางวัล</button>
+<button class="{{nav.psettings}}" onClick="{{go.psettings}}"><span class="ta-navic c-silver"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1 7 17M17 7l2.1-2.1"></path></svg></span>ตั้งค่า</button>
+</nav>
+<button class="ta-nav" onClick="{{logout}}" style="margin-top: 16px;"><span class="ta-navic" style="background: transparent; color: inherit;"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4h4v16h-4M10 8l-4 4 4 4M6 12h10"></path></svg></span>สลับผู้ใช้</button>
+</aside>
+</sc-if>
+
+<!-- ---------- content column ---------- -->
+<div style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column;">
+<header class="ta-topbar" style="flex-wrap: wrap; gap: 12px;">
+<div class="ta-row" style="gap: 12px;"><span class="heading" style="font-family: var(--font-display);">{{title}}</span><span class="caption ta-muted">{{subtitle}}</span></div>
+<div class="ta-row" style="gap: 8px;">
+<sc-if value="{{isStudent}}" hint-placeholder-val="{{ true }}">
+<div class="ta-row" style="gap: 8px;">
+<span class="ta-pillstat"><span style="color: var(--warning); display: inline-flex;"><svg class="i i-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2s5 5 5 10a5 5 0 0 1-10 0c0-2 1-3.5 2-4.5 0 2 1 3 2 3 0-3-1-5 1-8.5z"></path></svg></span>12 วัน</span>
+<span class="ta-pillstat"><span class="ta-coin" style="display: inline-flex;"><svg class="i i-sm" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M9 9h6M12 9v7"></path></svg></span><span class="ta-coin">{{coins}}</span></span>
+<span class="ta-pillstat"><span class="ta-lime" style="display: inline-flex;"><svg class="i i-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l7-7 7 7"></path><path d="M5 20l7-7 7 7"></path></svg></span>LV 18</span>
+</div>
+</sc-if>
+<button class="ta-iconbtn" onClick="{{toggleTheme}}" aria-label="{{themeAria}}" title="{{themeAria}}" style="color: var(--lime-text);">
+<sc-if value="{{isDark}}" hint-placeholder-val="{{ true }}"><svg class="i i-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"></path></svg></sc-if>
+<sc-if value="{{isLight}}" hint-placeholder-val="{{ false }}"><svg class="i i-sm" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg></sc-if>
+</button>
+<button class="ta-iconbtn" aria-label="การแจ้งเตือน"><svg class="i i-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4z"></path><path d="M10 21h4"></path></svg></button>
+</div>
+</header>
+
+<main class="ta-main ta-dots" style="flex: 1; padding: 24px clamp(16px, 3vw, 32px) 40px;">
+
+<!-- ======== STUDENT: HOME ======== -->
+<sc-if value="{{scr.home}}" hint-placeholder-val="{{ false }}">
+<div class="ta-col" style="gap: 24px;">
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; align-items: end;">
+<div><h1 class="ta-greet" style="font-size: clamp(32px, 4vw, 44px); line-height: 1.25;">สวัสดี กล้าหาญ!<br><em>ตอนนี้คุณคือ Level 18</em><br><em>TOTO Challenger</em></h1>
+<p class="ta-muted" style="margin: 12px 0 0; font-size: 18px; line-height: 30px;">รักษาจังหวะไว้ อีกนิดเดียวจะปลดล็อก <b style="color: var(--ink);">Boss Battle บทที่ 3</b> แล้ว</p></div>
+<div class="ta-glass" style="padding: 20px 24px;"><div class="ta-row" style="justify-content: space-between;"><span class="body-strong ta-lime">ความคืบหน้า Level 19</span><span class="ta-num" style="font-weight: 700;">{{xp}} / 630 XP</span></div>
+<div class="ta-xp ta-xp--lg" style="margin: 12px 0 8px;"><i style="width: {{xpPct}};"></i></div><div class="caption ta-muted" style="text-align: right;">อีก {{xpLeft}} XP ถึงเลเวลถัดไป</div></div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;">
+<div class="ta-istat"><div class="ta-istat-top"><span class="ta-ic-circle"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"></path></svg></span><span class="ta-ovl">Level</span></div><div class="ta-istat-v">18</div><div class="small ta-muted">TOTO Challenger</div></div>
+<div class="ta-istat"><div class="ta-istat-top"><span class="ta-ic-circle is-green"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l7-7 7 7"></path><path d="M5 20l7-7 7 7"></path></svg></span><span class="ta-ovl">Total XP</span></div><div class="ta-istat-v">12,480</div><div class="small ta-lime">+150 วันนี้</div></div>
+<div class="ta-istat"><div class="ta-istat-top"><span class="ta-ic-circle is-coin"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M9 9h6M12 9v7"></path></svg></span><span class="ta-ovl">TOTON</span></div><div class="ta-istat-v ta-coin">{{coins}}</div><div class="small ta-muted">แลกรางวัลได้ 2 รายการ</div></div>
+<div class="ta-istat"><div class="ta-istat-top"><span class="ta-ic-circle is-warn"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2s5 5 5 10a5 5 0 0 1-10 0c0-2 1-3.5 2-4.5 0 2 1 3 2 3 0-3-1-5 1-8.5z"></path></svg></span><span class="ta-ovl">Streak</span></div><div class="ta-istat-v">12 วัน</div><div class="small" style="color: var(--warning);">ไฟยังลุกอยู่ อย่าให้ดับ!</div></div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; align-items: start;">
+<section class="ta-glass" style="overflow: hidden;">
+<div class="ta-row" style="justify-content: space-between; padding: 18px 20px;"><span class="heading" style="font-family: var(--font-display);">TOTO Hall of Fame</span><button class="ta-btn ta-btn--ghost ta-btn--sm" onClick="{{go.hof}}" style="border: 0;">ดูทั้งหมด</button></div>
+<div style="overflow-x: auto;"><table class="ta-lbt"><thead><tr><th class="ta-ovl">Rank</th><th class="ta-ovl">Player</th><th class="ta-ovl" style="text-align: right;">XP</th></tr></thead><tbody>
+<sc-for list="{{board}}" as="r" hint-placeholder-count="4">
+<tr class="{{r.rowCls}}"><td><span class="{{r.rc}}">{{r.rank}}</span></td><td><div class="ta-row" style="gap: 12px; flex-wrap: nowrap;"><div class="ta-avatar" style="width: 36px; height: 36px; font-size: 12px;">{{r.av}}</div><div><div class="body-strong" style="line-height: 20px;">{{r.name}}</div><span class="caption ta-muted">{{r.tier}}</span></div></div></td><td class="ta-num" style="font-weight: 700; text-align: right;">{{r.xp}}</td></tr>
+</sc-for>
+</tbody></table></div>
+</section>
+<section class="ta-col" style="gap: 16px;">
+<div class="ta-glass" style="padding: 20px;"><div class="ta-ovl">ภารกิจวันนี้</div><div style="font-family: var(--font-display); font-weight: 800; font-size: 36px; line-height: 44px;">{{questDone}}<span class="ta-muted" style="font-size: 20px;"> / 3</span></div>
+<p class="small ta-muted" style="margin: 8px 0 16px;">เหลือ: ติวกับพี่โต้จนแก้เองได้ 1 โจทย์</p>
+<button class="ta-btn ta-btn--primary" onClick="{{go.tutor}}" style="width: 100%; justify-content: center;">ไปติวกับพี่โต้ (+30 TOTON)</button></div>
+<div class="ta-glass" style="padding: 20px;"><div class="ta-row" style="gap: 10px; margin-bottom: 12px;"><svg class="ta-toto" viewBox="0 0 40 40" aria-hidden="true"><polygon points="12,2 28,2 38,12 38,28 28,38 12,38 2,28 2,12" fill="var(--green-deep)" stroke="var(--lime-text)" stroke-width="2"></polygon><rect x="12" y="14" width="5" height="10" rx="2" fill="var(--lime)"></rect><rect x="23" y="14" width="5" height="10" rx="2" fill="var(--lime)"></rect></svg><span class="heading" style="font-family: var(--font-display);">พี่โต้แนะนำ</span></div>
+<div class="small">เมื่อวานติดเรื่อง <b>สมการที่มีเศษส่วน</b> พี่เตรียมโจทย์อุ่นเครื่อง D2 ไว้ 5 ข้อแล้ว</div>
+<button class="ta-btn ta-btn--secondary ta-btn--sm" onClick="{{go.quiz}}" style="margin-top: 12px;">เริ่มอุ่นเครื่อง</button></div>
+</section>
+</div>
+</div>
+</sc-if>
+
+<!-- ======== STUDENT: LEARN ======== -->
+<sc-if value="{{scr.learn}}" hint-placeholder-val="{{ false }}">
+<div class="ta-col" style="gap: 20px;">
+<div class="ta-row" style="gap: 8px;"><span class="ta-chip">คณิตศาสตร์</span><span class="ta-chip">ม.2</span><span class="ta-chip">เทอม 1</span><span class="ta-chip ta-chip--lime">บทที่ 3 สมการเชิงเส้นตัวแปรเดียว</span></div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; align-items: start;">
+<section class="ta-glass ta-col" style="padding: 24px; gap: 16px;">
+<div class="ta-row" style="justify-content: space-between; gap: 12px;">
+<div class="ta-seg" role="tablist" aria-label="รูปแบบสรุป"><sc-for list="{{learnTabs}}" as="tb" hint-placeholder-count="3"><button class="{{tb.cls}}" onClick="{{tb.pick}}" role="tab" aria-selected="{{tb.on}}">{{tb.label}}</button></sc-for></div>
+<span class="ta-chip" style="color: var(--info);"><svg class="i i-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 3 8l9 5 9-5z"></path><path d="m3 13 9 5 9-5"></path></svg>ผสม · ชีทโรงเรียน + แหล่งภายนอก</span>
+</div>
+<sc-if value="{{lt.sum}}" hint-placeholder-val="{{ true }}">
+<div class="ta-col" style="gap: 16px;">
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px;">
+<div class="ta-card" style="background: var(--lime); color: var(--on-lime); border-color: transparent; grid-column: 1 / -1; text-align: center; font-family: var(--font-display); font-weight: 700; font-size: 20px; padding: 16px;">สมการเชิงเส้นตัวแปรเดียว</div>
+<div class="ta-card" style="background: var(--bg-300); border-color: var(--line-strong); padding: 16px;"><div class="body-strong">รูปทั่วไป</div><div class="small ta-muted">ax + b = 0 โดย a ≠ 0</div></div>
+<div class="ta-card" style="background: var(--bg-300); border-color: var(--line-strong); padding: 16px;"><div class="body-strong">สมบัติการเท่ากัน</div><div class="small ta-muted">บวก ลบ คูณ หาร ทั้งสองข้างด้วยจำนวนเดียวกัน</div></div>
+<div class="ta-card" style="background: var(--bg-300); border-color: var(--line-strong); padding: 16px;"><div class="body-strong">ย้ายข้าง</div><div class="small ta-muted">ย้ายข้ามเครื่องหมาย = ให้เปลี่ยนการกระทำเป็นตรงข้าม</div></div>
+<div class="ta-card" style="background: var(--bg-300); border-color: var(--line-strong); padding: 16px;"><div class="body-strong">โจทย์ปัญหา</div><div class="small ta-muted">กำหนดตัวแปร → ตั้งสมการ → แก้ → ตรวจคำตอบ</div></div>
+</div>
+<div class="ta-card" style="background: var(--bg-300); border-color: var(--line-strong);"><div class="ta-hint">จุดที่คนพลาดบ่อย</div><div class="body">ย้าย <b>−3</b> ข้ามเครื่องหมาย = ต้องกลายเป็น <b>+3</b> เสมอ ลองนึกว่า "บวก 3 ทั้งสองข้าง" จะไม่สับสน</div></div>
+</div>
+</sc-if>
+<sc-if value="{{lt.key}}" hint-placeholder-val="{{ false }}">
+<div class="ta-col" style="gap: 10px;">
+<p class="small ta-muted" style="margin: 0;">แก่นสำคัญ 6 ข้อของบทนี้ อ่านจบใน 2 นาที · กดตัวเลขท้ายข้อเพื่อดูว่ามาจากแหล่งไหน</p>
+<sc-for list="{{keyIdeas}}" as="k" hint-placeholder-count="6">
+<div class="ta-card ta-row" style="background: var(--bg-300); border-color: var(--line-strong); padding: 12px 16px; gap: 12px; flex-wrap: nowrap; align-items: flex-start;"><span class="ta-rc" style="flex: none;">{{k.n}}</span><div class="body" style="flex: 1; min-width: 0;">{{k.t}}<sc-for list="{{k.cites}}" as="c" hint-placeholder-count="1"><button class="{{c.cls}}" onClick="{{c.pick}}" aria-label="{{c.aria}}" aria-pressed="{{c.on}}">{{c.n}}</button></sc-for><sc-if value="{{k.hot}}" hint-placeholder-val="{{ false }}"> <span class="ta-chip" style="color: var(--warning);">ออกสอบบ่อย</span></sc-if></div></div>
+</sc-for>
+<sc-if value="{{citeOpen}}" hint-placeholder-val="{{ false }}">
+<div class="ta-card ta-col" style="gap: 6px; border-color: var(--info);" role="status" aria-live="polite"><div class="ta-row" style="justify-content: space-between;"><span class="ta-hint" style="margin: 0;">แหล่งอ้างอิง [{{src.n}}]</span><span class="ta-chip">{{src.tier}}</span></div><div class="body-strong">{{src.title}}</div><div class="small">{{src.support}}</div><div class="caption ta-muted">{{src.meta}}</div></div>
+</sc-if>
+<div class="ta-card" style="border-style: dashed; border-color: var(--line-strong);"><div class="ta-hint" style="color: var(--warning);">ชีทของโรงเรียนอธิบายต่างออกไป</div><div class="small">ชีทใช้คำว่า "ย้ายข้าง" ส่วนหนังสือเรียนใช้ "สมบัติการเท่ากัน" — เป็นเรื่องเดียวกัน ตอบในห้องเรียนให้ยึดตามที่ครูสอนเป็นหลัก</div></div>
+</div>
+</sc-if>
+<sc-if value="{{lt.cheat}}" hint-placeholder-val="{{ false }}">
+<div class="ta-col" style="gap: 12px;">
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px;">
+<div class="ta-card" style="padding: 16px;"><div class="ta-ovl">สูตร · นิยาม</div><div class="ta-num" style="font-size: 18px; margin: 6px 0;">ax + b = 0, a ≠ 0</div><div class="small ta-muted">คำตอบ x = −b ÷ a</div></div>
+<div class="ta-card" style="padding: 16px;"><div class="ta-ovl">ขั้นแก้สมการ</div><div class="small" style="margin-top: 6px;">1 กระจาย/ตัดวงเล็บ · 2 รวมพจน์ที่มี x ไว้ข้างเดียว · 3 ถอดตัวทำหลังสุดก่อน · 4 แทนค่ากลับ</div></div>
+<div class="ta-card" style="padding: 16px;"><div class="ta-ovl">กับดักที่เจอบ่อย</div><div class="small" style="margin-top: 6px;">ลืมเปลี่ยนเครื่องหมายเมื่อย้ายข้าง · ลืมหารสัมประสิทธิ์ · คูณไม่ครบทุกพจน์เมื่อกำจัดเศษส่วน</div></div>
+</div>
+<button class="ta-btn ta-btn--secondary ta-btn--sm" style="align-self: flex-start;"><svg class="i i-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9V3h12v6M6 18H4v-7h16v7h-2M8 14h8v7H8z"></path></svg>พิมพ์ / บันทึกเป็น PDF</button>
+</div>
+</sc-if>
+<div class="caption ta-muted" style="border-top: 1px solid var(--line); padding-top: 12px;">แหล่งที่มา: [1] ชีทคณิต ม.2 บทที่ 3 หน้า 12–15 (ชีทโรงเรียน) · [2] หนังสือเรียนคณิตศาสตร์ ม.2 เล่ม 1 (สสวท. · T1) · [3] ตัวชี้วัดหลักสูตรแกนกลาง สาระจำนวนและพีชคณิต (สพฐ. · T1) · [4] Khan Academy ภาษาไทย (T2)</div>
+</section>
+<section class="ta-col" style="gap: 16px;">
+<button class="ta-card ta-flash" onClick="{{flip}}" aria-label="พลิกการ์ดคำศัพท์" style="padding: 32px 24px; text-align: center; min-height: 200px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; background: var(--bg-200);">
+<span class="caption ta-muted">Flashcard 7 / 24 · {{flipHint}}</span>
+<span style="font-family: var(--font-display); font-size: 30px; line-height: 40px; font-weight: 700;">{{flashText}}</span>
+<span class="small ta-muted">{{flashSub}}</span>
+</button>
+<div class="ta-row"><button class="ta-btn ta-btn--secondary ta-btn--sm" onClick="{{flip}}">ยังไม่แม่น</button><button class="ta-btn ta-btn--primary ta-btn--sm" onClick="{{flip}}">จำได้แล้ว</button></div>
+<div class="ta-glass" style="padding: 20px;"><div class="ta-sh"><h3>เช็กความเข้าใจ</h3></div><div class="small ta-muted" style="margin-bottom: 12px;">5 ข้อ · D1–D2 · ประมาณ 4 นาที</div><button class="ta-btn ta-btn--primary" onClick="{{go.quiz}}" style="width: 100%; justify-content: center;">ทำแบบทดสอบบทนี้</button></div>
+<div class="ta-glass ta-col" style="padding: 20px; gap: 8px;"><span class="ta-ovl">บทถัดไป</span><div class="body-strong">บทที่ 4 พหุนาม</div><div class="small ta-muted">{{ask.msg}}</div>
+<sc-if value="{{ask.can}}" hint-placeholder-val="{{ true }}"><button class="ta-btn ta-btn--secondary ta-btn--sm" onClick="{{ask.req}}" style="align-self: flex-start;">ขอสรุปบทนี้</button></sc-if>
+<sc-if value="{{ask.sent}}" hint-placeholder-val="{{ false }}"><span class="ta-chip" style="color: var(--warning); align-self: flex-start;">ส่งคำขอถึงผู้ปกครองแล้ว</span></sc-if>
+<sc-if value="{{ask.ready}}" hint-placeholder-val="{{ false }}"><span class="ta-chip ta-chip--lime" style="align-self: flex-start;">✓ สรุปพร้อมแล้ว</span></sc-if>
+</div>
+<div class="ta-glass ta-row" style="padding: 16px 20px;"><span class="ta-lime" style="display: inline-flex;"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"></path></svg></span><div class="small">ยังงงตรงไหน? <button class="ta-btn ta-btn--ghost ta-btn--sm" onClick="{{go.tutor}}" style="border: 0; padding: 0 4px; min-height: 0;">ถามพี่โต้</button>โดยอ้างถึงบทนี้ได้เลย</div></div>
+</section>
+</div>
+</div>
+</sc-if>
+
+<!-- ======== STUDENT: TUTOR ======== -->
+<sc-if value="{{scr.tutor}}" hint-placeholder-val="{{ false }}">
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; align-items: start;">
+<section class="ta-glass ta-col" style="padding: 24px; gap: 18px; grid-column: span 2; min-width: 0;">
+<div class="ta-msg ta-msg--me"><div class="ta-avatar" style="width: 36px; height: 36px; font-size: 13px;">กล้า</div><div class="ta-col" style="gap: 8px; align-items: flex-end;"><div class="ta-card" style="padding: 12px 16px; background: var(--bg-300);"><div class="caption ta-muted">รูปโจทย์ · อ่านด้วย OCR</div><div style="font-family: var(--font-mono); font-size: 18px; margin-top: 4px;">(x − 3) / 2 + 5 = 9</div></div><div class="ta-bubble">ข้อนี้ทำยังไงครับ</div></div></div>
+<div class="ta-msg ta-msg--toto"><svg class="ta-toto" viewBox="0 0 40 40" aria-hidden="true"><polygon points="12,2 28,2 38,12 38,28 28,38 12,38 2,28 2,12" fill="var(--green-deep)" stroke="var(--lime-text)" stroke-width="2"></polygon><rect x="12" y="14" width="5" height="10" rx="2" fill="var(--lime)"></rect><rect x="23" y="14" width="5" height="10" rx="2" fill="var(--lime)"></rect></svg><div><div class="ta-hint">คำใบ้ขั้นที่ 1 · ถามนำ</div><div class="ta-bubble">โจทย์ดีเลย! ลองบอกพี่หน่อยว่า <b>x ถูกทำอะไรบ้าง</b> ตามลำดับ ตั้งแต่ x ไปจนถึงได้ 9?</div></div></div>
+<div class="ta-msg ta-msg--me"><div class="ta-avatar" style="width: 36px; height: 36px; font-size: 13px;">กล้า</div><div class="ta-bubble">ลบ 3 แล้วหาร 2 แล้วบวก 5</div></div>
+<div class="ta-msg ta-msg--toto"><svg class="ta-toto" viewBox="0 0 40 40" aria-hidden="true"><polygon points="12,2 28,2 38,12 38,28 28,38 12,38 2,28 2,12" fill="var(--green-deep)" stroke="var(--lime-text)" stroke-width="2"></polygon><rect x="12" y="14" width="5" height="10" rx="2" fill="var(--lime)"></rect><rect x="23" y="14" width="5" height="10" rx="2" fill="var(--lime)"></rect></svg><div><div class="ta-hint">คำใบ้ขั้นที่ 2 · ชี้ทิศ</div><div class="ta-bubble">ถูกเป๊ะ! จะ "ถอด" ให้เหลือ x ต้องย้อนจาก <b>ตัวสุดท้าย</b> ก่อน ตัวสุดท้ายคือบวก 5 น้องจะทำอะไรกับทั้งสองข้าง?</div></div></div>
+<sc-if value="{{tutor.s1}}" hint-placeholder-val="{{ false }}">
+<div class="ta-col" style="gap: 18px;">
+<div class="ta-msg ta-msg--me"><div class="ta-avatar" style="width: 36px; height: 36px; font-size: 13px;">กล้า</div><div class="ta-bubble">ลบ 5 ทั้งสองข้าง ได้ (x − 3) / 2 = 4</div></div>
+<div class="ta-msg ta-msg--toto"><svg class="ta-toto" viewBox="0 0 40 40" aria-hidden="true"><polygon points="12,2 28,2 38,12 38,28 28,38 12,38 2,28 2,12" fill="var(--green-deep)" stroke="var(--lime-text)" stroke-width="2"></polygon><rect x="12" y="14" width="5" height="10" rx="2" fill="var(--lime)"></rect><rect x="23" y="14" width="5" height="10" rx="2" fill="var(--lime)"></rect></svg><div class="ta-bubble">วิธีคิดถูกต้องเลย! ต่อไปตัวที่ทำก่อนหน้าคือ <b>หาร 2</b> — จะถอดมันออกยังไงดี?</div></div>
+</div>
+</sc-if>
+<sc-if value="{{tutor.s2}}" hint-placeholder-val="{{ false }}">
+<div class="ta-col" style="gap: 18px;">
+<div class="ta-msg ta-msg--me"><div class="ta-avatar" style="width: 36px; height: 36px; font-size: 13px;">กล้า</div><div class="ta-bubble">คูณ 2 ได้ x − 3 = 8 แล้วบวก 3 ได้ x = 11</div></div>
+<div class="ta-msg ta-msg--toto"><svg class="ta-toto" viewBox="0 0 40 40" aria-hidden="true"><polygon points="12,2 28,2 38,12 38,28 28,38 12,38 2,28 2,12" fill="var(--green-deep)" stroke="var(--lime-text)" stroke-width="2"></polygon><rect x="12" y="14" width="5" height="10" rx="2" fill="var(--lime)"></rect><rect x="23" y="14" width="5" height="10" rx="2" fill="var(--lime)"></rect></svg><div><div class="ta-bubble" style="border-color: var(--lime-text);">ใช่แล้ว x = 11! ลองแทนค่ากลับดู: (11 − 3) / 2 + 5 = 9 ✓ น้องแก้ได้เองโดยไม่เปิดเฉลยเลย</div><div class="ta-row" style="gap: 8px; margin-top: 8px;"><span class="ta-chip ta-chip--lime ta-num">+40 XP</span><span class="ta-chip ta-chip--coin">ภารกิจสำเร็จ +30 TOTON</span></div></div></div>
+</div>
+</sc-if>
+<div style="border-top: 1px solid var(--line); padding-top: 16px;">
+<div class="ta-row" style="gap: 8px; margin-bottom: 10px;">
+<sc-if value="{{tutor.c0}}" hint-placeholder-val="{{ true }}"><button class="ta-chip ta-chip--lime" onClick="{{tutorNext}}" style="padding: 6px 12px; font-size: 13px;">ลบ 5 ทั้งสองข้าง</button></sc-if>
+<sc-if value="{{tutor.c1}}" hint-placeholder-val="{{ false }}"><button class="ta-chip ta-chip--lime" onClick="{{tutorNext}}" style="padding: 6px 12px; font-size: 13px;">คูณ 2 แล้วบวก 3</button></sc-if>
+<sc-if value="{{tutor.c2}}" hint-placeholder-val="{{ false }}"><button class="ta-chip" onClick="{{tutorReset}}" style="padding: 6px 12px; font-size: 13px;">เริ่มโจทย์ใหม่</button></sc-if>
+<button class="ta-chip" style="padding: 6px 12px; font-size: 13px;">ยังไม่เข้าใจ ขอตัวอย่าง</button>
+</div>
+<div class="ta-row" style="gap: 8px; flex-wrap: nowrap;"><button class="ta-btn ta-btn--secondary" aria-label="ถ่ายรูปโจทย์"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h3l2-3h6l2 3h3v13H4z"></path><circle cx="12" cy="13" r="4"></circle></svg></button><label style="flex: 1; min-width: 0;"><span class="caption ta-muted" style="position: absolute; left: -9999px;">พิมพ์คำตอบ</span><input type="text" placeholder="พิมพ์คำตอบหรือวิธีคิดของน้อง…" style="width: 100%; box-sizing: border-box; min-height: 48px; border: 1px solid var(--line-strong); border-radius: var(--radius-md); background: var(--bg-200); color: var(--ink); padding: 12px 16px; font: inherit;"></label><button class="ta-btn ta-btn--primary" onClick="{{tutorNext}}" aria-label="ส่ง"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12 20 4l-6 16-3-7z"></path></svg></button></div>
+</div>
+</section>
+<aside class="ta-glass ta-col" style="padding: 20px; gap: 12px;">
+<div class="ta-sh" style="margin: 0;"><h3>บันไดคำใบ้</h3></div>
+<sc-for list="{{ladder}}" as="st" hint-placeholder-count="4">
+<div class="ta-card ta-row" style="padding: 12px 14px; gap: 10px; border-color: {{st.border}}; background: {{st.bg}};"><span class="{{st.chip}}">{{st.n}}</span><span class="small">{{st.label}}</span></div>
+</sc-for>
+<div class="ta-card"><div class="caption ta-muted">ถ้าแก้ได้เองโดยไม่เปิดเฉลย</div><div class="ta-row" style="gap: 8px; margin-top: 6px;"><span class="ta-chip ta-chip--lime ta-num">+40 XP</span><span class="ta-chip ta-chip--coin">+30 TOTON</span></div></div>
+<div class="ta-card ta-row" style="justify-content: space-between;"><div><div class="caption ta-muted">Hint Token</div><span class="ta-num">2 อัน</span></div><button class="ta-btn ta-btn--secondary ta-btn--sm">ใช้เปิดขั้น 3</button></div>
+</aside>
+</div>
+</sc-if>
+
+<!-- ======== STUDENT: QUIZ ======== -->
+<sc-if value="{{scr.quiz}}" hint-placeholder-val="{{ false }}">
+<div class="ta-col" style="gap: 16px;">
+<div class="ta-glass ta-row" style="padding: 14px 20px; justify-content: space-between;">
+<div><div class="body-strong">Boss Battle · บทที่ 3 สมการเชิงเส้น</div><div class="caption ta-muted">ข้อ 7 จาก 15 · ถูก 6</div></div>
+<div class="ta-row" style="gap: 8px;"><span class="ta-pillstat">COMBO ×{{combo}}</span><span class="ta-pillstat">ความยาก <b class="ta-lime">{{diff}}</b></span><span class="ta-pillstat" style="color: var(--warning);">08:42</span></div>
+</div>
+<div class="ta-xp"><i style="width: 46%;"></i></div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; align-items: start;">
+<section class="ta-col" style="gap: 14px;">
+<div class="ta-row" style="gap: 8px;"><span class="ta-chip">ปรนัย</span><span class="ta-chip">ประยุกต์ (Apply)</span><span class="ta-chip">แนวข้อสอบสาธิต</span></div>
+<div style="font-size: 20px; line-height: 34px;">ร้านค้าขายปากกาด้ามละ <b>x</b> บาท ถ้าซื้อ 3 ด้ามแล้วได้ส่วนลด 6 บาท จ่ายเงินไป 45 บาท ปากการาคาด้ามละเท่าไร?</div>
+<div class="ta-col" style="gap: 10px;" role="radiogroup" aria-label="ตัวเลือกคำตอบ">
+<sc-for list="{{opts}}" as="o" hint-placeholder-count="4">
+<button class="{{o.cls}}" onClick="{{o.pick}}" role="radio" aria-checked="{{o.checked}}"><span class="ta-opt-k">{{o.k}}</span><span>{{o.t}}</span><span class="ta-opt-tag" style="color: {{o.tagColor}};">{{o.tag}}</span></button>
+</sc-for>
+</div>
+<sc-if value="{{qNotDone}}" hint-placeholder-val="{{ true }}"><button class="ta-btn ta-btn--primary" onClick="{{submit}}" disabled="{{noSel}}" style="align-self: flex-start;">ส่งคำตอบ</button></sc-if>
+</section>
+<aside class="ta-col" style="gap: 16px;">
+<sc-if value="{{qRight}}" hint-placeholder-val="{{ false }}">
+<div class="ta-glass ta-col" style="padding: 20px; gap: 10px; border-color: var(--lime-text); box-shadow: var(--glow-lime);"><div class="ta-row" style="justify-content: space-between;"><span class="body-strong ta-lime">✓ ถูกต้อง! ถูก 4 ข้อติด</span><span class="ta-chip ta-chip--lime ta-num">+38 XP</span></div><div class="small ta-muted">25 XP (D3) +50% ครั้งแรก · COMBO ×1.2 → ข้อต่อไประบบจะดันขึ้น <b class="ta-lime">D4</b></div></div>
+</sc-if>
+<sc-if value="{{qWrong}}" hint-placeholder-val="{{ false }}">
+<div class="ta-glass ta-col" style="padding: 20px; gap: 10px; border-color: var(--danger);"><span class="body-strong" style="color: var(--danger);">✕ ยังไม่ใช่ — ไม่เป็นไรนะ</span><div class="small ta-muted">COMBO รีเซ็ต · ข้อต่อไประบบจะถอยมา <b>D2</b> และเปิดการ์ดทบทวน "การตั้งสมการจากโจทย์"</div></div>
+</sc-if>
+<sc-if value="{{qDone}}" hint-placeholder-val="{{ false }}">
+<div class="ta-col" style="gap: 16px;">
+<div class="ta-glass ta-col" style="padding: 20px; gap: 8px;"><div class="ta-hint">วิธีคิด (Step-by-Step)</div><div class="small"><b>1.</b> ตั้งสมการ: 3x − 6 = 45</div><div class="small"><b>2.</b> บวก 6 ทั้งสองข้าง: 3x = 51</div><div class="small"><b>3.</b> หาร 3 ทั้งสองข้าง: x = 17</div><div class="caption ta-muted" style="margin-top: 4px;">ตัวเลือก ง (51) คือคนที่ลืมหาร 3 — กับดักที่พบบ่อย</div></div>
+<button class="ta-btn ta-btn--primary" onClick="{{nextQ}}" style="justify-content: center;">ข้อต่อไป</button>
+</div>
+</sc-if>
+<sc-if value="{{qNotDone}}" hint-placeholder-val="{{ true }}">
+<div class="ta-glass" style="padding: 20px;"><div class="ta-hint">ติดอยู่ใช่ไหม?</div><p class="small ta-muted" style="margin: 4px 0 12px;">ขอคำใบ้จากพี่โต้ได้ แต่ข้อนี้จะไม่ได้โบนัส "ถูกครั้งแรก"</p><button class="ta-btn ta-btn--secondary ta-btn--sm">ขอคำใบ้ขั้นที่ 1</button></div>
+</sc-if>
+</aside>
+</div>
+</div>
+</sc-if>
+
+<!-- ======== STUDENT: QUESTS ======== -->
+<sc-if value="{{scr.quests}}" hint-placeholder-val="{{ false }}">
+<div class="ta-col" style="gap: 20px;">
+<div class="ta-row" style="justify-content: space-between;"><div class="ta-seg" role="tablist"><button class="ta-seg-b is-on">รายวัน</button><button class="ta-seg-b">รายสัปดาห์</button><button class="ta-seg-b">จากผู้ปกครอง</button></div><span class="small ta-muted">รีเซ็ตใน 9 ชม. 12 น.</span></div>
+<div class="ta-col" style="gap: 10px; max-width: 760px;">
+<div class="{{questCls}}"><div class="ta-quest-ic"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5 10 17l9-10"></path></svg></div><div><div class="body-strong">ทบทวน Flashcard คำศัพท์ Unit 3</div><div class="small ta-lime">{{questMsg}}</div></div><sc-if value="{{questCanClaim}}" hint-placeholder-val="{{ true }}"><button class="ta-btn ta-btn--primary ta-btn--sm" onClick="{{claim}}">รับ +30</button></sc-if><sc-if value="{{questClaimed}}" hint-placeholder-val="{{ false }}"><span class="ta-chip ta-chip--lime">รับแล้ว</span></sc-if></div>
+<div class="ta-quest"><div class="ta-quest-ic"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="5"></circle></svg></div><div><div class="body-strong">ตอบถูก 5 ข้อติด เรื่องสมการเชิงเส้น</div><div class="ta-row" style="gap: 8px; margin-top: 6px;"><div class="ta-xp" style="width: 180px; height: 8px;"><i style="width: 60%;"></i></div><span class="small ta-muted ta-num">3/5</span></div></div><button class="ta-btn ta-btn--secondary ta-btn--sm" onClick="{{go.quiz}}">ไปทำ</button></div>
+<div class="ta-quest"><div class="ta-quest-ic"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"></path></svg></div><div><div class="body-strong">ติวกับพี่โต้จนแก้เองได้ 1 โจทย์</div><div class="small ta-muted">ภารกิจท้าทาย · +30 TOTON</div></div><button class="ta-btn ta-btn--secondary ta-btn--sm" onClick="{{go.tutor}}">ไปทำ</button></div>
+</div>
+<div class="ta-glass" style="padding: 20px; max-width: 760px;"><div class="ta-sh"><h3>Boss Battle ที่เปิดอยู่</h3></div><div class="ta-row" style="justify-content: space-between;"><div class="small">บทที่ 3 สมการเชิงเส้น · 15 ข้อ · 20 นาที · ชนะได้ Crest อัปเกรดเป็น Silver</div><button class="ta-btn ta-btn--primary ta-btn--sm" onClick="{{go.quiz}}">ท้าสู้</button></div></div>
+</div>
+</sc-if>
+
+<!-- ======== STUDENT: REPORT ======== -->
+<sc-if value="{{scr.report}}" hint-placeholder-val="{{ false }}">
+<div class="ta-col" style="gap: 20px;">
+<div class="ta-seg" role="tablist" style="align-self: flex-start;"><button class="ta-seg-b is-on">คณิตศาสตร์</button><button class="ta-seg-b">วิทยาศาสตร์</button><button class="ta-seg-b">ภาษาอังกฤษ</button></div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;">
+<div class="ta-istat"><span class="ta-ovl">เลเวลความสามารถ</span><div class="ta-istat-v ta-lime">B+</div><div class="small ta-muted">ข้อสอบโรงเรียน (D3) แม่นแล้ว</div></div>
+<div class="ta-istat"><span class="ta-ovl">ตอบถูก 30 วัน</span><div class="ta-istat-v">74%</div><div class="small ta-lime">▲ 9%</div></div>
+<div class="ta-istat"><span class="ta-ovl">เวลาเฉลี่ยต่อข้อ</span><div class="ta-istat-v">1:12</div><div class="small ta-muted">นาที</div></div>
+<div class="ta-istat"><span class="ta-ovl">Crests</span><div class="ta-istat-v">7</div><div class="small ta-muted">Gold 2 · Silver 3 · Bronze 2</div></div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; align-items: start;">
+<section class="ta-glass ta-col" style="padding: 20px; align-items: center;"><div class="ta-sh" style="align-self: stretch;"><h3>เรดาร์ทักษะ</h3></div>
+<svg viewBox="0 0 280 280" width="280" height="280" role="img" aria-label="กราฟเรดาร์ทักษะคณิตศาสตร์ 6 ด้าน">
+<polygon points="140,40 226.6,90 226.6,190 140,240 53.4,190 53.4,90" fill="none" stroke="var(--line)"></polygon>
+<polygon points="140,90 183.3,115 183.3,165 140,190 96.7,165 96.7,115" fill="none" stroke="var(--line)"></polygon>
+<polygon points="140,102 175.5,98.8 211,181 140,188 92.4,167.5 105.4,120" fill="var(--lime)" fill-opacity="0.22" stroke="var(--lime-text)" stroke-width="2"></polygon>
+<text x="140" y="28" text-anchor="middle" font-size="12" fill="var(--ink-muted)">จำนวน</text>
+<text x="236" y="88" font-size="12" fill="var(--ink-muted)">พีชคณิต</text>
+<text x="236" y="198" font-size="12" fill="var(--ink-muted)">เรขาคณิต</text>
+<text x="140" y="262" text-anchor="middle" font-size="12" fill="var(--ink-muted)">สถิติ</text>
+<text x="44" y="198" text-anchor="end" font-size="12" fill="var(--ink-muted)">แก้โจทย์</text>
+<text x="44" y="88" text-anchor="end" font-size="12" fill="var(--ink-muted)">ให้เหตุผล</text>
+</svg></section>
+<section class="ta-glass ta-col" style="padding: 20px; gap: 14px;"><div class="ta-sh" style="margin: 0;"><h3>ความเชี่ยวชาญรายหัวข้อ</h3><span class="caption ta-muted">อ่อนสุดอยู่บน</span></div>
+<sc-for list="{{mastery}}" as="m" hint-placeholder-count="5">
+<div style="display: grid; grid-template-columns: minmax(0, 1fr) 120px 44px; gap: 12px; align-items: center; font-size: 15px;"><span>{{m.name}} <span class="{{m.chipCls}}">{{m.chip}}</span></span><div class="ta-mbar-t"><i class="{{m.barCls}}" style="width: {{m.pct}};"></i></div><span class="ta-num small">{{m.pct}}</span></div>
+</sc-for>
+<div class="ta-card ta-row" style="background: var(--bg-300); border-color: var(--line-strong); gap: 12px;"><div class="small" style="flex: 1 1 240px;"><b>พี่โต้แนะนำ:</b> รากของปัญหาคือ <b>การคูณไขว้เศษส่วน</b> (ม.1) ทบทวน 10 นาทีแล้วค่อยกลับมาเรื่องสมการ</div><button class="ta-btn ta-btn--primary ta-btn--sm" onClick="{{go.quiz}}">เริ่มฝึก</button></div>
+</section>
+</div>
+</div>
+</sc-if>
+
+<!-- ======== STUDENT: HALL OF FAME ======== -->
+<sc-if value="{{scr.hof}}" hint-placeholder-val="{{ false }}">
+<div class="ta-col" style="gap: 20px;">
+<div class="ta-seg" role="tablist" style="align-self: flex-start;"><sc-for list="{{hofTabs}}" as="tb" hint-placeholder-count="3"><button class="{{tb.cls}}" onClick="{{tb.pick}}">{{tb.label}}</button></sc-for></div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; align-items: start;">
+<section class="ta-glass" style="overflow: hidden;"><div style="overflow-x: auto;"><table class="ta-lbt"><thead><tr><th class="ta-ovl">Rank</th><th class="ta-ovl">Player</th><th class="ta-ovl" style="text-align: right;">XP</th><th class="ta-ovl" style="text-align: right;">Crests</th></tr></thead><tbody>
+<sc-for list="{{board}}" as="r" hint-placeholder-count="5">
+<tr class="{{r.rowCls}}"><td><span class="{{r.rc}}">{{r.rank}}</span></td><td><div class="ta-row" style="gap: 12px; flex-wrap: nowrap;"><div class="ta-avatar" style="width: 36px; height: 36px; font-size: 12px;">{{r.av}}</div><div><div class="body-strong" style="line-height: 20px;">{{r.name}}</div><span class="caption ta-muted">{{r.tier}}</span></div></div></td><td class="ta-num" style="font-weight: 700; text-align: right;">{{r.xp}}</td><td class="ta-num ta-muted" style="text-align: right;">{{r.badges}}</td></tr>
+</sc-for>
+</tbody></table></div></section>
+<section class="ta-col" style="gap: 16px;">
+<div class="ta-glass" style="padding: 20px; border-style: dashed; border-color: var(--line-strong);"><div class="ta-ovl">Ghost Rival</div><div class="body-strong" style="margin-top: 6px;">คุณเมื่อสัปดาห์ก่อน: 2,200 XP</div><div class="small ta-lime">ชนะแล้ว! นำอยู่ 410 XP</div></div>
+<div class="ta-glass" style="padding: 20px;"><div class="small">อีก <b class="ta-lime">330 XP</b> แซงขึ้นอันดับ 1 · ชนะ Boss Battle บทที่ 3 ได้ ~180 XP</div><button class="ta-btn ta-btn--primary ta-btn--sm" onClick="{{go.quiz}}" style="margin-top: 12px;">ไปสนามสอบ</button></div>
+</section>
+</div>
+</div>
+</sc-if>
+
+<!-- ======== STUDENT: SHOP ======== -->
+<sc-if value="{{scr.shop}}" hint-placeholder-val="{{ false }}">
+<div class="ta-col" style="gap: 20px;">
+<div class="ta-glass ta-row" style="padding: 16px 20px; justify-content: space-between;"><div><div class="ta-ovl">ยอด TOTON ของคุณ</div><div class="ta-istat-v ta-coin">{{coins}}</div></div><div class="small ta-muted" style="max-width: 360px;">รางวัลในร้านตั้งโดยผู้ปกครอง ทุกการแลกต้องรอผู้ปกครองอนุมัติก่อนใช้</div></div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px;">
+<sc-for list="{{shop}}" as="it" hint-placeholder-count="4">
+<div class="ta-glass ta-col" style="padding: 20px; gap: 10px;"><span class="ta-ovl">{{it.kind}}</span><div class="heading" style="font-family: var(--font-display);">{{it.name}}</div><div class="ta-num ta-coin" style="font-weight: 700;">{{it.price}} TOTON</div>
+<sc-if value="{{it.can}}" hint-placeholder-val="{{ true }}"><button class="ta-btn ta-btn--primary ta-btn--sm" onClick="{{it.req}}" style="align-self: flex-start;">ขอแลก</button></sc-if>
+<sc-if value="{{it.pending}}" hint-placeholder-val="{{ false }}"><span class="ta-chip" style="color: var(--warning); align-self: flex-start;">รอผู้ปกครองอนุมัติ</span></sc-if>
+<sc-if value="{{it.short}}" hint-placeholder-val="{{ false }}"><span class="small ta-muted">ขาดอีก {{it.need}} TOTON</span></sc-if>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-if>
+
+<!-- ======== SETTINGS (both roles) ======== -->
+<sc-if value="{{scr.settings}}" hint-placeholder-val="{{ false }}">
+<div class="ta-col" style="gap: 20px; max-width: 1040px;">
+<section class="ta-glass ta-col" style="padding: 24px; gap: 16px;">
+<div><div class="heading" style="font-family: var(--font-display);">ธีม</div><div class="small ta-muted">เลือกได้ตามชอบ ระบบจำค่าไว้กับโปรไฟล์ของคุณ ใช้ได้ทุกเครื่องที่ล็อกอิน</div></div>
+<div class="ta-theme-cards" role="radiogroup" aria-label="ธีม" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
+<button class="{{tc.dark}}" onClick="{{setDark}}" role="radio" aria-checked="{{tcA.dark}}">
+<div class="ta-thumb ta-root" data-theme="dark"><div class="ta-thumb-side"><i class="on"></i><i></i><i></i><i></i></div><div class="ta-thumb-main"><b></b><b class="hl"></b><div class="ta-thumb-tiles"><s></s><s></s><s></s></div></div></div>
+<div class="ta-theme-card-foot"><div><div class="body-strong">มืด · Arena</div><div class="caption ta-muted">เท่แบบเกม เหมาะกับกลางคืน</div></div><span class="ta-radio"></span></div></button>
+<button class="{{tc.light}}" onClick="{{setLight}}" role="radio" aria-checked="{{tcA.light}}">
+<div class="ta-thumb ta-root" data-theme="light"><div class="ta-thumb-side"><i class="on"></i><i></i><i></i><i></i></div><div class="ta-thumb-main"><b></b><b class="hl"></b><div class="ta-thumb-tiles"><s></s><s></s><s></s></div></div></div>
+<div class="ta-theme-card-foot"><div><div class="body-strong">สว่าง · Daylight</div><div class="caption ta-muted">อ่านเนื้อหายาวสบายตาตอนกลางวัน</div></div><span class="ta-radio"></span></div></button>
+<button class="{{tc.system}}" onClick="{{setSystem}}" role="radio" aria-checked="{{tcA.system}}">
+<div class="ta-thumb-split"><div class="ta-thumb ta-root" data-theme="light"><div class="ta-thumb-side"><i class="on"></i><i></i><i></i></div><div class="ta-thumb-main"><b></b><b class="hl"></b></div></div><div class="ta-thumb ta-root" data-theme="dark"><div class="ta-thumb-side"><i class="on"></i><i></i><i></i></div><div class="ta-thumb-main"><b></b><b class="hl"></b></div></div></div>
+<div class="ta-theme-card-foot"><div><div class="body-strong">ตามอุปกรณ์</div><div class="caption ta-muted">สลับเองตามการตั้งค่าของ iPad/มือถือ</div></div><span class="ta-radio"></span></div></button>
+</div>
+<div class="small ta-muted">ตอนนี้แสดงผล: <b style="color: var(--ink);">{{themeLabel}}</b></div>
+</section>
+<section class="ta-glass ta-col" style="padding: 24px; gap: 12px;">
+<div class="heading" style="font-family: var(--font-display);">ตัวเลือกเพิ่มเติม</div>
+<label class="ta-row" style="justify-content: space-between; flex-wrap: nowrap; cursor: pointer;"><span><span class="body-strong" style="display: block;">ใช้ธีมสว่างตอนอ่านเนื้อหายาว</span><span class="small ta-muted">เปิดหน้า "เรียน" เป็น Daylight อัตโนมัติ</span></span><input type="checkbox" style="width: 22px; height: 22px; accent-color: var(--lime);"></label>
+<label class="ta-row" style="justify-content: space-between; flex-wrap: nowrap; cursor: pointer;"><span><span class="body-strong" style="display: block;">ลดการเคลื่อนไหว</span><span class="small ta-muted">ปิดแอนิเมชันเลเวลอัปและการเปลี่ยนสีแบบค่อย ๆ จาง</span></span><input type="checkbox" style="width: 22px; height: 22px; accent-color: var(--lime);"></label>
+</section>
+<sc-if value="{{isParent}}" hint-placeholder-val="{{ false }}">
+<section class="ta-glass ta-col" style="padding: 24px; gap: 14px;">
+<div><div class="heading" style="font-family: var(--font-display);">ความปลอดภัยของบัญชี</div><div class="small ta-muted">วิธีเข้าสู่ระบบ การยืนยันสองขั้น และเครื่องของลูก</div></div>
+<div class="ta-row" style="justify-content: space-between;"><div><div class="body-strong">อีเมล + รหัสผ่าน</div><div class="small ta-muted">parent@example.com</div></div><button class="ta-btn ta-btn--secondary ta-btn--sm">เปลี่ยนรหัสผ่าน</button></div>
+<div class="ta-row" style="justify-content: space-between;"><div class="ta-row" style="gap: 10px; flex-wrap: nowrap;"><span class="au-g" aria-hidden="true">G</span><div><div class="body-strong">บัญชี Google</div><div class="small ta-muted">{{sec.gText}}</div></div></div>
+<sc-if value="{{sec.gLinked}}" hint-placeholder-val="{{ true }}"><button class="ta-btn ta-btn--ghost ta-btn--sm" onClick="{{sec.toggleG}}" style="border: 0;">ยกเลิกการเชื่อม</button></sc-if>
+<sc-if value="{{sec.gNot}}" hint-placeholder-val="{{ false }}"><button class="ta-btn ta-btn--secondary ta-btn--sm" onClick="{{sec.toggleG}}">เชื่อมบัญชี Google</button></sc-if></div>
+<div class="ta-row" style="justify-content: space-between;"><div><div class="body-strong">ยืนยันสองขั้น (2FA) <span class="{{sec.tfaChip}}">{{sec.tfaLabel}}</span></div><div class="small ta-muted">ใช้รหัสจากแอป Authenticator ตอนเข้าสู่ระบบบนเครื่องใหม่</div></div><button class="ta-btn ta-btn--secondary ta-btn--sm" onClick="{{sec.toggle2fa}}">{{sec.tfaBtn}}</button></div>
+<div style="border-top: 1px solid var(--line); padding-top: 14px;" class="ta-col">
+<div class="ta-row" style="justify-content: space-between;"><div><div class="body-strong">เครื่องของน้องกล้าหาญ</div><div class="small ta-muted">iPad ห้องนั่งเล่น · ใช้ล่าสุดวันนี้ 19:42 &nbsp;·&nbsp; มือถือของน้อง · เมื่อวาน</div></div>
+<sc-if value="{{sec.noQr}}" hint-placeholder-val="{{ true }}"><button class="ta-btn ta-btn--primary ta-btn--sm" onClick="{{sec.showQr}}">เพิ่มเครื่องให้น้อง</button></sc-if></div>
+<sc-if value="{{sec.qr}}" hint-placeholder-val="{{ false }}">
+<div class="ta-card ta-row" style="gap: 20px; background: var(--bg-300); border-color: var(--line-strong); align-items: center;">
+<div class="qr" role="img" aria-label="QR สำหรับเชื่อมเครื่อง (ตัวอย่าง)"><sc-for list="{{qrCells}}" as="q" hint-placeholder-count="0"><span class="{{q}}"></span></sc-for></div>
+<div class="ta-col" style="gap: 6px; flex: 1 1 220px;"><div class="body-strong">ให้น้องสแกนด้วยเครื่องของน้อง</div><div class="small ta-muted">หรือพิมพ์รหัสในหน้าเลือกผู้เล่น › "เชื่อมเครื่องนี้"</div><div class="ta-num" style="font-size: 22px; font-weight: 700; letter-spacing: 0.08em;">K7Q2-M9TA</div><div class="caption" style="color: var(--warning);">หมดอายุใน 9:41 นาที · ใช้ได้ครั้งเดียว</div><button class="ta-btn ta-btn--ghost ta-btn--sm" onClick="{{sec.hideQr}}" style="border: 0; align-self: flex-start;">ยกเลิก</button></div>
+</div>
+</sc-if>
+</div>
+<div class="ta-row" style="justify-content: space-between; border-top: 1px solid var(--line); padding-top: 14px;"><div><div class="body-strong">เครื่องที่เข้าสู่ระบบอยู่</div><div class="small ta-muted">MacBook (เครื่องนี้) · iPhone · เข้าล่าสุด 24 ต.ค. 16:20</div></div><button class="ta-btn ta-btn--ghost ta-btn--sm" style="border: 0; color: var(--danger);">ออกจากทุกเครื่อง</button></div>
+</section>
+</sc-if>
+</div>
+</sc-if>
+
+<!-- ======== PARENT: DASHBOARD ======== -->
+<sc-if value="{{scr.pdash}}" hint-placeholder-val="{{ false }}">
+<div class="ta-col" style="gap: 20px;">
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;">
+<div class="ta-stat"><div class="ta-stat-v">5 ชม. 40 น.</div><div class="ta-stat-l">เวลาเรียนสัปดาห์นี้ <span class="ta-delta-up">▲ 48 น.</span></div></div>
+<div class="ta-stat"><div class="ta-stat-v">6 / 7</div><div class="ta-stat-l">วันที่เข้าใช้ (streak 12 วัน)</div></div>
+<div class="ta-stat"><div class="ta-stat-v">74%</div><div class="ta-stat-l">ตอบถูกเฉลี่ย <span class="ta-delta-up">▲ 9%</span></div></div>
+<div class="ta-stat"><div class="ta-stat-v" style="color: var(--warning);">1</div><div class="ta-stat-l">ครั้งที่ใช้นอกเวลาที่ตั้ง (หลัง 22:00)</div></div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 16px; align-items: start;">
+<section class="ta-glass" style="padding: 20px;"><div class="ta-sh"><h3>วัน–เวลาที่เข้าใช้</h3><span class="caption ta-muted">06:00–23:00</span></div>
+<div style="overflow-x: auto;"><div class="ta-col" style="gap: 4px; min-width: 420px;">
+<sc-for list="{{heat}}" as="row" hint-placeholder-count="7">
+<div class="ta-row" style="gap: 4px; flex-wrap: nowrap;"><span class="caption ta-muted" style="width: 24px;">{{row.d}}</span><sc-for list="{{row.cells}}" as="c" hint-placeholder-count="18"><span class="ta-heat" style="background: {{c.bg}}; opacity: {{c.op}};" title="{{c.t}}"></span></sc-for></div>
+</sc-for>
+</div></div>
+<div class="ta-row caption ta-muted" style="gap: 16px; margin-top: 10px;"><span><span class="ta-heat" style="background: var(--green); width: 10px; height: 10px;"></span> ใช้งาน</span><span><span class="ta-heat" style="background: var(--warning); width: 10px; height: 10px;"></span> หลัง 22:00</span></div>
+</section>
+<section class="ta-glass" style="padding: 20px;"><div class="ta-sh"><h3>ความก้าวหน้า (Mastery เฉลี่ย)</h3><span class="caption ta-muted">8 สัปดาห์</span></div>
+<svg viewBox="0 0 520 160" width="100%" role="img" aria-label="กราฟความก้าวหน้าจาก 52% เป็น 72% ใน 8 สัปดาห์"><line x1="30" x2="510" y1="140" y2="140" stroke="var(--line)"></line><line x1="30" x2="510" y1="80" y2="80" stroke="var(--line)"></line><line x1="30" x2="510" y1="20" y2="20" stroke="var(--line)"></line><text x="0" y="144" font-size="11" fill="var(--ink-muted)">40%</text><text x="0" y="84" font-size="11" fill="var(--ink-muted)">60%</text><text x="0" y="24" font-size="11" fill="var(--ink-muted)">80%</text><polyline points="30,104 99,95 167,98 236,80 304,71 373,77 441,56 510,44" fill="none" stroke="var(--green)" stroke-width="3" stroke-linejoin="round"></polyline><circle cx="510" cy="44" r="5" fill="var(--green)"></circle></svg>
+<div class="ta-col" style="gap: 8px; margin-top: 12px;">
+<div style="display: grid; grid-template-columns: 110px 1fr 70px; gap: 12px; align-items: center;"><span class="small">คณิตศาสตร์</span><div class="ta-mbar-t"><i style="width: 48%;"></i></div><span class="ta-num small">2:45 ชม.</span></div>
+<div style="display: grid; grid-template-columns: 110px 1fr 70px; gap: 12px; align-items: center;"><span class="small">วิทยาศาสตร์</span><div class="ta-mbar-t"><i style="width: 30%;"></i></div><span class="ta-num small">1:40 ชม.</span></div>
+<div style="display: grid; grid-template-columns: 110px 1fr 70px; gap: 12px; align-items: center;"><span class="small">ภาษาอังกฤษ</span><div class="ta-mbar-t"><i style="width: 22%;"></i></div><span class="ta-num small">1:15 ชม.</span></div>
+</div></section>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 16px; align-items: start;">
+<section class="ta-glass" style="padding: 16px 20px;"><div class="ta-sh"><h3>กิจกรรมล่าสุด</h3><button class="ta-btn ta-btn--ghost ta-btn--sm" style="border: 0;">ส่งออก CSV</button></div>
+<div style="overflow-x: auto;"><table class="ta-table"><thead><tr><th>วัน–เวลา</th><th>นาน</th><th>กิจกรรม</th><th>อุปกรณ์</th></tr></thead><tbody>
+<tr><td class="ta-num">ศ. 23 · 19:42–20:31</td><td class="ta-num">49 น.</td><td>Boss Battle คณิต บท 3 <span class="ta-chip ta-chip--lime">14/18</span></td><td class="ta-muted">iPad</td></tr>
+<tr><td class="ta-num">ศ. 23 · 17:05–17:22</td><td class="ta-num">17 น.</td><td>ติวกับพี่โต้ · วิทย์</td><td class="ta-muted">iPad</td></tr>
+<tr><td class="ta-num">พฤ. 22 · 22:14–22:30</td><td class="ta-num">16 น.</td><td>Flashcards อังกฤษ <span class="ta-chip" style="color: var(--warning);">นอกเวลา</span></td><td class="ta-muted">มือถือ</td></tr>
+</tbody></table></div></section>
+<section class="ta-glass ta-col" style="padding: 20px; gap: 10px;"><div class="ta-sh" style="margin: 0;"><h3>จุดที่ควรช่วยเสริม</h3></div>
+<div class="ta-row" style="justify-content: space-between;"><span class="small">คณิต · การให้เหตุผลและพิสูจน์</span><span class="ta-chip ta-chip--danger">38%</span></div>
+<div class="ta-row" style="justify-content: space-between;"><span class="small">คณิต · สมการที่มีเศษส่วน</span><span class="ta-chip ta-chip--danger">44%</span></div>
+<div class="ta-row" style="justify-content: space-between;"><span class="small">วิทย์ · แรงลัพธ์</span><span class="ta-chip" style="color: var(--warning);">55%</span></div>
+<div class="small ta-muted">ระบบตั้งภารกิจทบทวน ม.1 เรื่องเศษส่วนให้อัตโนมัติแล้ว</div>
+<button class="ta-btn ta-btn--primary ta-btn--sm" onClick="{{go.pcontent}}" style="align-self: flex-start;">สร้างชุดข้อสอบเสริมจุดอ่อน</button></section>
+</div>
+</div>
+</sc-if>
+
+<!-- ======== PARENT: CONTENT & EXAMS ======== -->
+<sc-if value="{{scr.pcontent}}" hint-placeholder-val="{{ false }}">
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; align-items: start;">
+<section class="ta-glass ta-col" style="padding: 16px; gap: 4px;"><div class="ta-sh"><h3>โครงหลักสูตร</h3></div>
+<span class="caption ta-muted" style="padding: 0 10px 8px;">คณิตศาสตร์ › ม.2 › เทอม 1</span>
+<div class="ta-nav" style="font-size: 14px;">บทที่ 1 การแปลงทางเรขาคณิต<span class="caption ta-muted" style="margin-left: auto;">42 ข้อ</span></div>
+<div class="ta-nav" style="font-size: 14px;">บทที่ 2 สมบัติของเลขยกกำลัง<span class="caption ta-muted" style="margin-left: auto;">36 ข้อ</span></div>
+<div class="ta-nav is-on" style="font-size: 14px;">บทที่ 3 สมการเชิงเส้น<span class="caption" style="margin-left: auto;">58 ข้อ</span></div>
+<div class="ta-nav" style="font-size: 14px;">บทที่ 4 พหุนาม<span class="caption ta-muted" style="margin-left: auto;">ยังไม่มี</span></div>
+<button class="ta-btn ta-btn--ghost ta-btn--sm" style="border: 0; align-self: flex-start;">+ เพิ่มบท / หัวข้อ</button>
+</section>
+<section class="ta-col" style="gap: 16px;">
+<div class="ta-glass" style="border-style: dashed; border-color: var(--line-strong); text-align: center; padding: 28px;"><span class="ta-lime" style="display: inline-flex;"><svg class="i i-lg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5M4 20h16"></path></svg></span><div class="body-strong" style="margin-top: 6px;">ลากไฟล์มาวาง หรือถ่ายรูปชีทด้วย iPad</div><div class="small ta-muted">PDF, JPG, PNG, PPTX · ระบบอ่านด้วย OCR และติดแท็กบท/หัวข้อให้อัตโนมัติ</div><button class="ta-btn ta-btn--primary ta-btn--sm" style="margin-top: 12px;">เลือกไฟล์</button></div>
+<div class="ta-glass" style="padding: 16px 20px;"><div class="ta-sh"><h3>ไฟล์ในบทนี้</h3></div><div style="overflow-x: auto;"><table class="ta-table"><thead><tr><th>ไฟล์</th><th>สถานะ</th></tr></thead><tbody>
+<tr><td>ชีทคณิต ม.2 บท 3.pdf<div class="caption ta-muted">สรุป 1 · Mind Map 1 · Flashcards 24 · ข้อสอบ 58</div></td><td><span class="ta-chip ta-chip--lime">พร้อมใช้</span></td></tr>
+<tr><td>ข้อสอบกลางภาค 2567.pdf<div class="caption ta-muted">คลังข้อสอบเก่า · ตรวจเฉลย 2 ชั้น</div></td><td><span class="ta-chip" style="color: var(--info);">กำลังสร้าง 60%</span></td></tr>
+<tr><td>รูปกระดาน 21 ต.ค.jpg<div class="caption ta-muted">AI เดาว่าเป็น บทที่ 3 · หัวข้อ โจทย์ปัญหา</div></td><td><button class="ta-btn ta-btn--secondary ta-btn--sm">ตรวจแท็ก</button></td></tr>
+</tbody></table></div></div>
+</section>
+<section class="ta-glass ta-col" style="padding: 20px; gap: 14px;"><div class="ta-sh" style="margin: 0;"><h3>สร้างข้อสอบให้ลูก</h3></div>
+<div><div class="caption ta-muted">หัวข้อ</div><div class="ta-row" style="gap: 6px; margin-top: 4px;"><span class="ta-chip ta-chip--lime">สมการเชิงเส้น ✓</span><span class="ta-chip ta-chip--lime">โจทย์ปัญหา ✓</span><span class="ta-chip">เลขยกกำลัง</span></div></div>
+<div><div class="caption ta-muted">ระดับความยาก (แตะเพื่อเลือก)</div><div class="ta-row" style="gap: 6px; margin-top: 4px;"><sc-for list="{{diffs}}" as="d" hint-placeholder-count="5"><button class="{{d.cls}}" onClick="{{d.pick}}" aria-pressed="{{d.on}}" style="padding: 6px 12px; font-size: 13px;">{{d.label}}</button></sc-for></div></div>
+<div><div class="caption ta-muted">จำนวนข้อ · เวลา · รูปแบบ</div><div class="ta-row" style="gap: 8px; margin-top: 4px;"><span class="ta-pillstat">20 ข้อ</span><span class="ta-pillstat">30 นาที</span><span class="ta-pillstat">ปรนัย 70% · เขียน 30%</span></div></div>
+<div><div class="caption ta-muted">กำหนดส่ง · รางวัล</div><div class="ta-row" style="gap: 8px; margin-top: 4px;"><span class="ta-pillstat">อา. 25 ต.ค. 20:00</span><span class="ta-pillstat ta-coin">+200 TOTON</span></div></div>
+<sc-if value="{{examNotSent}}" hint-placeholder-val="{{ true }}"><button class="ta-btn ta-btn--primary ta-btn--sm" onClick="{{sendExam}}" style="align-self: flex-start;">สร้างและมอบหมาย</button></sc-if>
+<sc-if value="{{examSent}}" hint-placeholder-val="{{ false }}"><div class="ta-card" style="background: var(--lime-soft); border-color: var(--lime-text); padding: 12px 16px;"><span class="body-strong ta-lime">✓ มอบหมายแล้ว</span><div class="small">น้องกล้าหาญจะเห็นเป็น "ภารกิจจากผู้ปกครอง" ทันที ({{diffSummary}})</div></div></sc-if>
+</section>
+</div>
+</sc-if>
+
+<!-- ======== PARENT: SUMMARY GENERATION & REVIEW QUEUE ======== -->
+<sc-if value="{{scr.psource}}" hint-placeholder-val="{{ false }}">
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 16px; align-items: start;">
+<section class="ta-glass ta-col" style="padding: 20px; gap: 16px;">
+<div class="ta-sh" style="margin: 0;"><h3>สร้างสรุปใหม่</h3><span class="caption ta-muted ta-num">ใช้ไป {{ps.quota}} / 30 ครั้งเดือนนี้</span></div>
+<div><div class="caption ta-muted">เริ่มจาก</div><div class="ta-col" style="gap: 8px; margin-top: 6px;" role="radiogroup" aria-label="โหมดการสร้างสรุป"><sc-for list="{{modes}}" as="m" hint-placeholder-count="4"><button class="{{m.cls}}" onClick="{{m.pick}}" role="radio" aria-checked="{{m.on}}"><span class="body-strong">{{m.k}} · {{m.label}}</span><span class="small ta-muted">{{m.desc}}</span></button></sc-for></div></div>
+<sc-if value="{{ps.isC}}" hint-placeholder-val="{{ false }}"><label class="au-field">ลิงก์บทความ / PDF / วิดีโอ YouTube<input class="au-input" type="url" placeholder="https://"></label></sc-if>
+<div><div class="caption ta-muted">ขอบเขต</div><div class="ta-row" style="gap: 6px; margin-top: 4px;"><span class="ta-chip">คณิตศาสตร์</span><span class="ta-chip">ม.2</span><span class="ta-chip">เทอม 1</span><span class="ta-chip ta-chip--lime">บทที่ 4 พหุนาม</span></div></div>
+<div><div class="caption ta-muted">แหล่งที่อนุญาตให้ค้น (แตะเพื่อเปิด/ปิด)</div><div class="ta-row" style="gap: 6px; margin-top: 4px;"><sc-for list="{{tiers}}" as="t" hint-placeholder-count="3"><button class="{{t.cls}}" onClick="{{t.pick}}" aria-pressed="{{t.on}}" style="padding: 6px 12px; font-size: 13px;">{{t.label}}</button></sc-for></div><div class="caption ta-muted" style="margin-top: 6px;">{{ps.tierNote}}</div></div>
+<div><div class="caption ta-muted">ผลลัพธ์</div><div class="ta-row" style="gap: 6px; margin-top: 4px;"><span class="ta-chip ta-chip--lime">แก่นสำคัญ ✓</span><span class="ta-chip ta-chip--lime">สรุป 1 หน้า ✓</span><span class="ta-chip ta-chip--lime">Flashcards ✓</span><span class="ta-chip">Cheat sheet</span><span class="ta-chip">Mind Map</span></div></div>
+<sc-if value="{{ps.idle}}" hint-placeholder-val="{{ true }}"><button class="ta-btn ta-btn--primary ta-btn--sm" onClick="{{ps.run}}" style="align-self: flex-start;">สร้างสรุป</button></sc-if>
+<sc-if value="{{ps.running}}" hint-placeholder-val="{{ false }}"><div class="ta-card ta-col" style="gap: 10px; background: var(--bg-300); border-color: var(--line-strong);" role="status" aria-live="polite"><sc-for list="{{jobSteps}}" as="j" hint-placeholder-count="5"><div class="{{j.cls}}"><b>{{j.mark}}</b><span>{{j.label}}</span></div></sc-for></div></sc-if>
+<sc-if value="{{ps.afterRun}}" hint-placeholder-val="{{ false }}"><div class="small ta-muted">{{ps.afterMsg}}</div></sc-if>
+</section>
+<section class="ta-col" style="gap: 16px;">
+<div class="ta-glass ta-col" style="padding: 20px; gap: 12px;">
+<div class="ta-sh" style="margin: 0;"><h3>คิวตรวจ</h3><span class="ta-chip">{{ps.qCount}} รอตรวจ</span></div>
+<sc-if value="{{ps.childReq}}" hint-placeholder-val="{{ false }}">
+<div class="ta-card ta-row" style="justify-content: space-between; gap: 12px;"><div><div class="body-strong">น้องกล้าหาญขอสรุป บทที่ 4 พหุนาม</div><div class="small ta-muted">ขอจาก Knowledge Hub · เมื่อสักครู่</div></div><button class="ta-btn ta-btn--secondary ta-btn--sm" onClick="{{ps.fromReq}}">สร้างให้ (โหมด B)</button></div>
+</sc-if>
+<sc-if value="{{ps.review}}" hint-placeholder-val="{{ false }}">
+<div class="ta-card ta-col" style="gap: 10px; border-color: var(--warning);">
+<div class="body-strong">บทที่ 4 พหุนาม · แก่นสำคัญ + สรุป 1 หน้า + Flashcards 18 ใบ</div>
+<div class="small ta-muted">อ้างอิง 6 แหล่ง: T1 ×3 · T2 ×3 · ทุกประโยคมีแหล่งรองรับ · ตัดประโยคที่ไม่มีแหล่งรองรับออก 2 ประโยค</div>
+<div class="ta-row" style="gap: 8px; flex-wrap: nowrap; align-items: flex-start;"><span class="ta-chip" style="color: var(--warning); flex: none;"><svg class="i i-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 21V4h11l-2 4 2 4H5"></path></svg>แหล่งไม่ตรงกัน 1 จุด</span><span class="small">ดีกรีของพหุนามศูนย์: หนังสือเรียน (T1) กับเว็บสถาบัน (T2) อธิบายต่างกัน ระบบใช้ตามหนังสือเรียน</span></div>
+<div class="ta-row" style="gap: 8px;"><button class="ta-btn ta-btn--ghost ta-btn--sm" style="border: 0;">ดูตัวอย่าง</button><button class="ta-btn ta-btn--secondary ta-btn--sm" onClick="{{ps.reject}}">ปฏิเสธ</button><button class="ta-btn ta-btn--primary ta-btn--sm" onClick="{{ps.approve}}">อนุมัติและเผยแพร่</button></div>
+</div>
+</sc-if>
+<sc-if value="{{ps.published}}" hint-placeholder-val="{{ false }}"><div class="ta-card" style="background: var(--lime-soft); border-color: var(--lime-text); padding: 12px 16px;"><span class="body-strong ta-lime">✓ เผยแพร่แล้ว</span><div class="small">บทที่ 4 พหุนาม ขึ้นใน Knowledge Hub ของน้องกล้าหาญแล้ว พร้อมป้าย "จากแหล่งภายนอก" ระบบจะเช็กลิงก์ต้นทางทุก 30 วัน</div></div></sc-if>
+<div class="ta-card ta-row" style="justify-content: space-between; gap: 12px;"><div><div class="body-strong">บทที่ 3 · Cheat sheet ก่อนสอบ</div><div class="small ta-muted">แหล่ง T1 ล้วน ไม่มีธงเตือน</div></div><span class="ta-chip ta-chip--lime">อนุมัติอัตโนมัติ</span></div>
+</div>
+<div class="ta-glass" style="padding: 16px 20px;"><div class="ta-sh"><h3>แหล่งความรู้</h3><button class="ta-btn ta-btn--ghost ta-btn--sm" style="border: 0;">+ เพิ่มแหล่ง</button></div>
+<div style="overflow-x: auto;"><table class="ta-table"><thead><tr><th>แหล่ง</th><th>ระดับ</th><th>สถานะ</th></tr></thead><tbody>
+<tr><td>ตัวชี้วัดหลักสูตรแกนกลาง · สพฐ.</td><td class="ta-num">T1</td><td><span class="ta-chip ta-chip--lime">เปิด</span></td></tr>
+<tr><td>หนังสือเรียนและคู่มือ · สสวท.</td><td class="ta-num">T1</td><td><span class="ta-chip ta-chip--lime">เปิด</span></td></tr>
+<tr><td>ประกาศและตัวอย่างข้อสอบ · ทปอ.</td><td class="ta-num">T1</td><td><span class="ta-chip ta-chip--lime">เปิด</span></td></tr>
+<tr><td>DLTV · Khan Academy · OpenStax</td><td class="ta-num">T2</td><td><span class="ta-chip ta-chip--lime">เปิด</span></td></tr>
+<tr><td>Wikipedia และเว็บความรู้ทั่วไป</td><td class="ta-num">T3</td><td><span class="ta-chip">ใช้เมื่อมี T1/T2 ยืนยัน</span></td></tr>
+</tbody></table></div></div>
+</section>
+</div>
+</sc-if>
+
+<!-- ======== PARENT: REWARDS ======== -->
+<sc-if value="{{scr.preward}}" hint-placeholder-val="{{ false }}">
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; align-items: start;">
+<section class="ta-glass" style="padding: 20px;"><div class="ta-sh"><h3>คำขอแลกที่รออนุมัติ</h3></div>
+<sc-if value="{{hasPending}}" hint-placeholder-val="{{ true }}">
+<div class="ta-card ta-row" style="justify-content: space-between; gap: 12px;"><div><div class="body-strong">เล่นเกม 30 นาที</div><div class="small ta-muted">น้องกล้าหาญ · 500 TOTON · ขอเมื่อ 10 นาทีที่แล้ว</div></div><div class="ta-row" style="gap: 8px;"><button class="ta-btn ta-btn--secondary ta-btn--sm" onClick="{{decide}}">ปฏิเสธ</button><button class="ta-btn ta-btn--primary ta-btn--sm" onClick="{{decide}}">อนุมัติ</button></div></div>
+</sc-if>
+<sc-if value="{{noPending}}" hint-placeholder-val="{{ false }}"><p class="small ta-muted" style="margin: 0;">ไม่มีคำขอค้างอยู่ — ลองไปที่ร้าน TOTON ฝั่งนักเรียนแล้วกด "ขอแลก" ดูได้</p></sc-if>
+</section>
+<section class="ta-glass" style="padding: 20px;"><div class="ta-sh"><h3>รางวัลในร้าน</h3><button class="ta-btn ta-btn--ghost ta-btn--sm" style="border: 0;">+ เพิ่มรางวัล</button></div>
+<div style="overflow-x: auto;"><table class="ta-table"><thead><tr><th>รางวัล</th><th>ราคา</th><th>จำกัด</th></tr></thead><tbody>
+<tr><td>เล่นเกม 30 นาที</td><td class="ta-num">500</td><td class="small ta-muted">3 ครั้ง/สัปดาห์</td></tr>
+<tr><td>เลือกร้านอาหารวันเสาร์</td><td class="ta-num">2,000</td><td class="small ta-muted">1 ครั้ง/เดือน</td></tr>
+<tr><td>Hint Token ×3</td><td class="ta-num">300</td><td class="small ta-muted">ไม่จำกัด</td></tr>
+<tr><td>กรอบอวาตาร์ Neon Lime</td><td class="ta-num">800</td><td class="small ta-muted">ครั้งเดียว</td></tr>
+</tbody></table></div></section>
+</div>
+</sc-if>
+
+</main>
+</div>
+</div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1000}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { scr: 'auth', authTab: 'signup', authStep: 'form', via: 'email', gLoading: false, c1: false, c2: false, c3: false, ob: 0, grade: 1, limit: 1, curfew: true, lineOn: false, firstContent: 'curr', learnTab: 0, cite: null, askReq: false, srcMode: 1, tiers: [true, true, false], job: 'idle', jobStage: 0, gLinked: true, tfa: false, qr: false, pref: 'dark', qSel: null, qDone: false, combo: 3, tStep: 0, flipped: false, claimed: false, hofTab: 0, requested: false, diffOn: [false, true, true, true, false], examSent: false, sel: null, pin: 0, entering: false };
+  }
+  componentWillUnmount() { if (this._t) clearTimeout(this._t); if (this._j) clearTimeout(this._j); if (this._g) clearTimeout(this._g); }
+  runJob() {
+    if (this._j) clearTimeout(this._j);
+    this.setState({ job: 'running', jobStage: 0 });
+    const tick = () => {
+      const n = this.state.jobStage + 1;
+      if (n >= 5) { this.setState({ job: 'review', jobStage: 5 }); return; }
+      this.setState({ jobStage: n });
+      this._j = setTimeout(tick, 700);
+    };
+    this._j = setTimeout(tick, 700);
+  }
+  authVals() {
+    const s = this.state;
+    const signup = s.authTab === 'signup';
+    const google = () => {
+      if (this.state.gLoading) return;
+      this.setState({ gLoading: true });
+      this._g = setTimeout(() => {
+        if (this.state.authTab === 'login') this.setState({ gLoading: false, scr: 'login' });
+        else this.setState({ gLoading: false, via: 'google', authStep: 'consent' });
+      }, 1100);
+    };
+    return {
+      form: s.authStep === 'form', otp: s.authStep === 'otp', consent: s.authStep === 'consent', onboard: s.authStep === 'onboard',
+      isSignup: signup, isLogin: !signup,
+      tabSignup: signup ? 'ta-seg-b is-on' : 'ta-seg-b', tabLogin: signup ? 'ta-seg-b' : 'ta-seg-b is-on',
+      signupSel: String(signup), loginSel: String(!signup),
+      toSignup: () => this.setState({ authTab: 'signup' }), toLogin: () => this.setState({ authTab: 'login' }),
+      swap: () => this.setState({ authTab: signup ? 'login' : 'signup' }),
+      heading: signup ? 'สร้างบัญชีครอบครัว' : 'ยินดีต้อนรับกลับมา',
+      sub: signup ? 'ผู้ปกครองเป็นเจ้าของบัญชี แล้วสร้างโปรไฟล์ให้ลูกภายหลัง · ใช้เวลาไม่ถึง 3 นาที' : 'เข้าสู่ระบบเพื่อเปิด Parent Console หรือให้ลูกเลือกโปรไฟล์บนเครื่องนี้',
+      gLoading: s.gLoading, gLabel: s.gLoading ? 'กำลังเชื่อมต่อกับ Google…' : 'ดำเนินการต่อด้วย Google',
+      google,
+      pwAuto: signup ? 'new-password' : 'current-password', pwPh: signup ? 'อย่างน้อย 8 ตัวอักษร' : 'รหัสผ่าน',
+      cta: signup ? 'สมัครด้วยอีเมล' : 'เข้าสู่ระบบ',
+      submit: () => { if (this.state.authTab === 'signup') this.setState({ authStep: 'otp', via: 'email' }); else this.setState({ scr: 'login' }); },
+      foot: signup ? 'มีบัญชีแล้ว?' : 'ยังไม่มีบัญชี?', swapLabel: signup ? 'เข้าสู่ระบบ' : 'สมัครสมาชิก',
+      verify: () => this.setState({ authStep: 'consent' }), back: () => this.setState({ authStep: 'form' }),
+      viaGoogle: s.via === 'google', viaEmail: s.via !== 'google',
+      c1: s.c1, c2: s.c2, c3: s.c3,
+      t1: () => this.setState({ c1: !this.state.c1 }), t2: () => this.setState({ c2: !this.state.c2 }), t3: () => this.setState({ c3: !this.state.c3 }),
+      cantAgree: !(s.c1 && s.c2),
+      agree: () => { if (this.state.c1 && this.state.c2) this.setState({ authStep: 'onboard', ob: 0 }); }
+    };
+  }
+  onboardVals() {
+    const s = this.state;
+    const labels = ['ครอบครัว', 'โปรไฟล์ลูก', 'เวลาใช้งาน', 'ธีม', 'เนื้อหาแรก'];
+    const steps = labels.map((label, i) => ({ label: (i + 1) + ' ' + label, cls: 'au-step' + (i === s.ob ? ' on' : (i < s.ob ? ' done' : '')) }));
+    const grades = ['ม.1', 'ม.2', 'ม.3', 'ม.4', 'ม.5', 'ม.6'].map((label, i) => ({ label, on: String(s.grade === i), cls: s.grade === i ? 'ta-chip ta-chip--lime' : 'ta-chip', pick: () => this.setState({ grade: i }) }));
+    const limits = ['1 ชม.', '2 ชม.', '3 ชม.', 'ไม่จำกัด'].map((label, i) => ({ label, on: String(s.limit === i), cls: s.limit === i ? 'ta-seg-b is-on' : 'ta-seg-b', pick: () => this.setState({ limit: i }) }));
+    const pk = (on) => (on ? 'au-pick is-on' : 'au-pick');
+    const last = s.ob === 4;
+    return {
+      steps, aria: 'ขั้นที่ ' + (s.ob + 1) + ' จาก 5',
+      s0: s.ob === 0, s1: s.ob === 1, s2: s.ob === 2, s3: s.ob === 3, s4: s.ob === 4,
+      grades, gradeNote: s.grade <= 2 ? 'ม.ต้น: เริ่มที่ความยาก D1–D3 · เป้าหมาย tier Novice → Challenger' : 'ม.ปลาย: เริ่มที่ความยาก D3–D5 · เลือกสายการเรียนได้ในโปรไฟล์ของน้อง',
+      limits, curfew: s.curfew, toggleCurfew: () => this.setState({ curfew: !this.state.curfew }), line: s.lineOn, toggleLine: () => this.setState({ lineOn: !this.state.lineOn }),
+      thSystem: pk(s.pref === 'system'), thLight: pk(s.pref === 'light'), thDark: pk(s.pref === 'dark'),
+      fcCurr: pk(s.firstContent === 'curr'), fcUpload: pk(s.firstContent === 'upload'), fcCurrOn: String(s.firstContent === 'curr'), fcUploadOn: String(s.firstContent === 'upload'),
+      pickCurr: () => this.setState({ firstContent: 'curr' }), pickUpload: () => this.setState({ firstContent: 'upload' }),
+      isFirst: s.ob === 0, canSkip: s.ob === 2 || s.ob === 4,
+      nextLabel: last ? 'เริ่มใช้งาน' : 'ถัดไป',
+      back: () => this.setState({ ob: Math.max(0, this.state.ob - 1) }),
+      next: () => {
+        if (this.state.ob < 4) { this.setState({ ob: this.state.ob + 1 }); return; }
+        this.setState({ scr: this.state.firstContent === 'curr' ? 'psource' : 'pcontent', authStep: 'form', ob: 0 });
+      }
+    };
+  }
+  lobbyVals() {
+    const s = this.state;
+    const parts = [];
+    for (let i = 0; i < 22; i++) {
+      parts.push({ cls: i % 4 === 0 ? 'lb-p alt' : 'lb-p', x: ((i * 37) % 100) + '%', t: (6 + (i % 5) * 1.6).toFixed(1) + 's', d: (-(i * 0.9)).toFixed(1) + 's' });
+    }
+    const press = (n) => () => { if (this.state.pin < 4) this.setState({ pin: this.state.pin + 1 }); };
+    const keys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'C', '⌫'].map((l) => ({
+      label: l, aria: l === '⌫' ? 'ลบ' : (l === 'C' ? 'ล้าง PIN' : 'ตัวเลข ' + l),
+      press: l === '⌫' ? () => this.setState({ pin: Math.max(0, this.state.pin - 1) }) : (l === 'C' ? () => this.setState({ pin: 0 }) : press(l))
+    }));
+    const tips = ['ตอบถูก 3 ข้อติด ได้ COMBO ×1.2 — ยิ่งติดยิ่งคูณ!', 'แก้โจทย์เองโดยไม่เปิดเฉลย ได้ +40 XP', 'เข้า Arena ทุกวันเพื่อรักษา Streak ไว้ อย่าให้ไฟดับ!'];
+    return {
+      none: !s.sel, studentSel: s.sel === 'student', parentSel: s.sel === 'parent',
+      studentCls: 'lb-card' + (s.sel === 'student' ? ' is-sel' : (s.sel ? ' is-dim' : '')),
+      parentCls: 'lb-card' + (s.sel === 'parent' ? ' is-sel' : (s.sel ? ' is-dim' : '')),
+      studentOn: String(s.sel === 'student'), parentOn: String(s.sel === 'parent'),
+      dots: [0, 1, 2, 3].map((i) => ({ cls: i < s.pin ? 'on' : '' })), pinAria: 'ใส่แล้ว ' + s.pin + ' จาก 4 หลัก',
+      keys, locked: s.pin < 4, entering: s.entering,
+      loadMode: s.sel === 'parent' ? 'Guardian mode' : 'Ranked · คณิต ม.2',
+      loadTitle: s.sel === 'parent' ? 'กำลังเปิด Console…' : 'กำลังเข้าสู่สนาม…',
+      tip: tips[s.pin % 3],
+      particles: parts
+    };
+  }
+  renderVals() {
+    const s = this.state;
+    const scr = s.scr;
+    let theme = s.pref;
+    if (s.pref === 'system') {
+      theme = (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) ? 'light' : 'dark';
+    }
+    const isDark = theme === 'dark';
+    const set = (x) => () => this.setState({ scr: x });
+    const keys = ['home', 'learn', 'tutor', 'quiz', 'quests', 'report', 'hof', 'shop', 'settings', 'pdash', 'pcontent', 'psource', 'preward', 'psettings'];
+    const go = {}; const nav = {}; const flags = {};
+    keys.forEach((k) => { go[k] = set(k); nav[k] = scr === k ? 'ta-nav is-on' : 'ta-nav'; flags[k] = scr === k; });
+    flags.settings = scr === 'settings' || scr === 'psettings';
+    const isParent = ['pdash', 'pcontent', 'psource', 'preward', 'psettings'].indexOf(scr) >= 0;
+    const titles = { home: ['Arena Home', 'ม.2 · เสาร์ 24 ต.ค.'], learn: ['เรียน', 'Knowledge Hub'], tutor: ['ติวกับพี่โต้', 'คณิต ม.2 · โหมดชวนคิด'], quiz: ['สนามสอบ', 'ปรับความยากอัตโนมัติ'], quests: ['ภารกิจ', 'ทำครบรับ XP และ TOTON'], report: ['รายงานพลัง', 'วิเคราะห์จาก 412 ข้อใน 30 วัน'], hof: ['TOTO Hall of Fame', 'สัปดาห์ที่ 43'], shop: ['ร้าน TOTON', 'รางวัลที่ผู้ปกครองตั้ง'], settings: ['ตั้งค่า', 'การแสดงผล'], pdash: ['ภาพรวมของน้องกล้าหาญ', 'สัปดาห์ 19–25 ต.ค. 2569'], pcontent: ['คลังเนื้อหา & ข้อสอบ', 'คณิตศาสตร์ ม.2'], psource: ['สร้างสรุป & คิวตรวจ', 'แหล่งความรู้ภายนอก · ผู้ปกครองอนุมัติก่อนเผยแพร่'], preward: ['ร้านรางวัล', 'ตั้งรางวัลและอนุมัติการแลก'], psettings: ['ตั้งค่า', 'การแสดงผล · ความปลอดภัย'] };
+    const t = titles[scr] || ['', ''];
+
+    const coins = 1240 + (s.claimed ? 30 : 0) + (s.tStep >= 2 ? 30 : 0);
+    const xp = 460 + (s.qDone && s.qSel === 1 ? 38 : 0) + (s.tStep >= 2 ? 40 : 0);
+    const fmt = (n) => n.toLocaleString('en-US');
+
+    const opts = [['ก', '13 บาท'], ['ข', '17 บาท'], ['ค', '15 บาท'], ['ง', '51 บาท']].map((o, i) => {
+      const sel = s.qSel === i; const ok = i === 1;
+      let cls = 'ta-opt'; let tag = ''; let tagColor = 'var(--ink-muted)';
+      if (s.qDone) {
+        if (ok) { cls = 'ta-opt is-right'; tag = '✓ ถูกต้อง'; tagColor = 'var(--lime-text)'; }
+        else if (sel) { cls = 'ta-opt is-wrong'; tag = '✕ ยังไม่ใช่'; tagColor = 'var(--danger)'; }
+      } else if (sel) { cls = 'ta-opt is-sel'; tag = 'เลือกอยู่'; tagColor = 'var(--lime-text)'; }
+      return { k: o[0], t: o[1], cls, tag, tagColor, checked: sel ? 'true' : 'false', pick: () => { if (!this.state.qDone) this.setState({ qSel: i }); } };
+    });
+    const qRight = s.qDone && s.qSel === 1;
+
+    const boards = [
+      [['1', 'ta-rc r1', 'ฟ้า', 'ฟ้าใส', 'TOTO Vanguard', '2,940', '12'], ['2', 'ta-rc r2', 'ภูมิ', 'ภูมิ', 'TOTO Challenger', '2,780', '10'], ['3', 'ta-rc r3', 'มิว', 'มิว', 'TOTO Challenger', '2,650', '9'], ['4', 'ta-rc', 'กล้า', 'กล้าหาญ (คุณ)', 'TOTO Challenger', fmt(2610 + (xp - 460)), '7', true]],
+      [['1', 'ta-rc r1', 'ฟ้า', 'ฟ้าใส', 'TOTO Vanguard', '11,820', '12'], ['2', 'ta-rc r2', 'กล้า', 'กล้าหาญ (คุณ)', 'TOTO Challenger', '10,960', '7', true], ['3', 'ta-rc r3', 'ภูมิ', 'ภูมิ', 'TOTO Challenger', '10,400', '10'], ['4', 'ta-rc', 'มิว', 'มิว', 'Novice Learner', '6,210', '4']],
+      [['1', 'ta-rc r1', 'ฟ้า', 'ฟ้าใส', 'TOTO Vanguard', '48,300', '31'], ['2', 'ta-rc r2', 'ภูมิ', 'ภูมิ', 'TOTO Challenger', '21,700', '15'], ['3', 'ta-rc r3', 'กล้า', 'กล้าหาญ (คุณ)', 'TOTO Challenger', '12,480', '7', true], ['4', 'ta-rc', 'มิว', 'มิว', 'Novice Learner', '7,950', '4']]
+    ];
+    const board = boards[s.hofTab].map((r) => ({ rank: r[0], rc: r[1], av: r[2], name: r[3], tier: r[4], xp: r[5], badges: r[6], rowCls: r[7] ? 'is-me' : '' }));
+    const hofTabs = ['รายสัปดาห์', 'รายเดือน', 'ตลอดกาล'].map((label, i) => ({ label, cls: s.hofTab === i ? 'ta-seg-b is-on' : 'ta-seg-b', pick: () => this.setState({ hofTab: i }) }));
+
+    const ladderDefs = [['1', 'ถามนำ'], ['2', 'ชี้ทิศ'], ['3', 'ทำขั้นแรกให้ดู'], ['4', 'เฉลยละเอียด · ปลดล็อกหลังพยายาม 3 ครั้ง']];
+    const cur = s.tStep >= 2 ? -1 : 1;
+    const ladder = ladderDefs.map((d, i) => {
+      const done = s.tStep >= 2 ? i <= 1 : i < cur; const now = i === cur;
+      return { n: d[0], label: now ? d[1] + ' · ตอนนี้' : (s.tStep >= 2 && i === 1 ? d[1] + ' · แก้ได้เองแล้ว ✓' : d[1]), chip: (done || now) ? 'ta-chip ta-chip--lime' : 'ta-chip', border: (done || now) ? 'var(--lime-text)' : 'var(--line)', bg: now ? 'var(--lime-soft)' : 'var(--bg-200)' };
+    });
+
+    const mastery = [['การให้เหตุผลและพิสูจน์', 38], ['สมการที่มีเศษส่วน', 44], ['โจทย์ปัญหาร้อยละ', 57], ['เลขยกกำลัง', 71], ['ทฤษฎีบทพีทาโกรัส', 86]].map((m) => ({ name: m[0], pct: m[1] + '%', barCls: m[1] < 50 ? 'is-weak' : (m[1] < 65 ? 'is-mid' : ''), chip: m[1] < 50 ? 'ต้องพัฒนา' : (m[1] >= 75 ? 'Gold' : ''), chipCls: m[1] < 50 ? 'ta-chip ta-chip--danger' : (m[1] >= 75 ? 'ta-chip ta-chip--lime' : '') }));
+
+    const shopDefs = [['เวลาพิเศษ', 'เล่นเกม 30 นาที', 500, true], ['ไอเทม', 'Hint Token ×3', 300, false], ['ไอเทม', 'กรอบอวาตาร์ Neon Lime', 800, false], ['ครอบครัว', 'เลือกร้านอาหารวันเสาร์', 2000, false]];
+    const shop = shopDefs.map((d) => {
+      const pending = d[3] && s.requested; const short = coins < d[2];
+      return { kind: d[0], name: d[1], price: fmt(d[2]), pending, can: !pending && !short, short: !pending && short, need: fmt(d[2] - coins), req: () => this.setState({ requested: true }) };
+    });
+
+    const days = ['จ', 'อ', 'พ', 'พฤ', 'ศ', 'ส', 'อา'];
+    const used = [[17, 19, 20], [19, 20], [17, 18, 20, 21], [19, 22], [17, 19, 20], [9, 10, 11, 14, 15], [10, 11, 20]];
+    const heat = days.map((d, di) => ({ d, cells: Array.from({ length: 18 }, (_, k) => { const h = k + 6; const on = used[di].indexOf(h) >= 0; return { bg: on ? (h >= 22 ? 'var(--warning)' : 'var(--green)') : 'var(--bg-300)', op: on ? String(0.55 + ((di * 7 + k) % 5) * 0.1) : '1', t: d + ' ' + h + ':00' + (on ? ' · ใช้งาน' : '') }; }) }));
+
+    const dl = ['D1', 'D2', 'D3', 'D4', 'D5'];
+    const diffs = dl.map((label, i) => ({ label, on: s.diffOn[i] ? 'true' : 'false', cls: s.diffOn[i] ? 'ta-chip ta-chip--lime' : 'ta-chip', pick: () => { const a = this.state.diffOn.slice(); a[i] = !a[i]; this.setState({ diffOn: a, examSent: false }); } }));
+    const picked = dl.filter((_, i) => s.diffOn[i]);
+
+    const learnTabs = ['สรุป 1 หน้า', 'แก่นสำคัญ', 'Cheat sheet'].map((label, i) => ({ label, on: String(s.learnTab === i), cls: s.learnTab === i ? 'ta-seg-b is-on' : 'ta-seg-b', pick: () => this.setState({ learnTab: i }) }));
+    const sources = {
+      1: ['ชีทคณิต ม.2 บทที่ 3 หน้า 12–15', 'ชีทโรงเรียน', 'ส่วนที่ใช้: กรอบ "ย้ายข้างต้องเปลี่ยนการกระทำเป็นตรงข้าม" และตัวอย่างที่ 3', 'อัปโหลดโดยผู้ปกครอง 2 ต.ค. 2569 · OCR หน้า 13'],
+      2: ['หนังสือเรียนคณิตศาสตร์ ม.2 เล่ม 1', 'T1 · สสวท.', 'ส่วนที่ใช้: หัวข้อสมบัติของการเท่ากัน และขั้นตอนการแก้โจทย์ปัญหา (สรุปความ ไม่คัดลอกต้นฉบับ)', 'ดึงเมื่อ 20 ต.ค. 2569 · ตรวจลิงก์ครั้งถัดไป 19 พ.ย. (ตัวอย่างในต้นแบบ)'],
+      3: ['ตัวชี้วัดหลักสูตรแกนกลาง สาระจำนวนและพีชคณิต ม.2', 'T1 · สพฐ.', 'ใช้กำหนดขอบเขต: เข้าใจและใช้สมบัติการเท่ากันแก้สมการเชิงเส้นตัวแปรเดียวและโจทย์ปัญหา', 'ใช้จับคู่เนื้อหากับตัวชี้วัด (ตัวอย่างในต้นแบบ)'],
+      4: ['Khan Academy ภาษาไทย · การแก้สมการ', 'T2 · สถาบันการศึกษา', 'ส่วนที่ใช้: เทคนิคย้อนลำดับการกระทำ และการตรวจคำตอบด้วยการแทนค่า', 'ดึงเมื่อ 20 ต.ค. 2569 (ตัวอย่างในต้นแบบ)']
+    };
+    const ideaDefs = [
+      ['สมการเชิงเส้นตัวแปรเดียวมีรูปทั่วไป ax + b = 0 โดย a ≠ 0 และมีคำตอบเดียวคือ x = −b ÷ a', [1, 2], false],
+      ['แก้สมการด้วยสมบัติการเท่ากัน: บวก ลบ คูณ หรือหารทั้งสองข้างด้วยจำนวนเดียวกัน (ห้ามหารด้วยศูนย์)', [2, 3], false],
+      ['"ย้ายข้าง" คือทางลัดของสมบัติการเท่ากัน ย้ายแล้วการกระทำต้องเปลี่ยนเป็นตรงข้าม', [1], true],
+      ['จะถอดให้เหลือ x ให้ย้อนลำดับการกระทำ ทำกับตัวที่ทำ "หลังสุด" ก่อน', [1, 4], false],
+      ['โจทย์ปัญหา: กำหนดตัวแปร → ตั้งสมการ → แก้สมการ → ตรวจคำตอบกับโจทย์เดิม', [2, 3], true],
+      ['ตรวจคำตอบด้วยการแทนค่ากลับเสมอ ถ้าสองข้างไม่เท่ากันแปลว่ามีขั้นที่พลาด', [4], false]
+    ];
+    const keyIdeas = ideaDefs.map((d, i) => ({ n: String(i + 1), t: d[0], hot: d[2], cites: d[1].map((c) => ({ n: String(c), on: String(s.cite === c), cls: s.cite === c ? 'cite is-on' : 'cite', aria: 'ดูแหล่งอ้างอิงที่ ' + c, pick: () => this.setState({ cite: this.state.cite === c ? null : c }) })) }));
+    const so = s.cite ? sources[s.cite] : ['', '', '', ''];
+    const published = s.job === 'published';
+    const ask = { can: !s.askReq && !published, sent: s.askReq && !published, ready: published, req: () => this.setState({ askReq: true }),
+      msg: published ? 'สรุปบทนี้พร้อมแล้ว · แก่นสำคัญ + สรุป 1 หน้า + Flashcards (จากแหล่งภายนอก ผู้ปกครองตรวจแล้ว)' : (s.askReq ? 'ผู้ปกครองจะได้รับคำขอในคิวตรวจ เมื่ออนุมัติแล้วบทนี้จะขึ้นที่นี่' : 'ยังไม่มีชีทบทนี้ อยากอ่านล่วงหน้า? ขอให้ระบบสรุปจากหลักสูตรได้') };
+    const modeDefs = [['A', 'จากชีทโรงเรียน', 'ใช้ไฟล์ที่อัปโหลด ตรงกับที่ครูสอนที่สุด'], ['B', 'จากหลักสูตร', 'ไม่ต้องมีไฟล์ ระบบค้นจากแหล่งที่อนุญาตตามตัวชี้วัดของบท'], ['C', 'จากลิงก์ที่คุณวาง', 'บทความ PDF หรือวิดีโอที่ครูแนะนำ'], ['D', 'เติมช่องว่าง', 'ชีทบทนี้ยังขาด 2 ตัวชี้วัด ระบบเติมจากแหล่งภายนอก']];
+    const modes = modeDefs.map((d, i) => ({ k: d[0], label: d[1], desc: d[2], on: String(s.srcMode === i), cls: s.srcMode === i ? 'au-pick is-on' : 'au-pick', pick: () => this.setState({ srcMode: i }) }));
+    const tiers = ['T1 ทางการ', 'T2 สถาบันการศึกษา', 'T3 ทั่วไป'].map((label, i) => ({ label: label + (s.tiers[i] ? ' ✓' : ''), on: String(s.tiers[i]), cls: s.tiers[i] ? 'ta-chip ta-chip--lime' : 'ta-chip', pick: () => { const a = this.state.tiers.slice(); a[i] = !a[i]; this.setState({ tiers: a }); } }));
+    const jobLabels = ['ค้นหาแหล่งในรายการที่อนุญาต', 'ดึงเนื้อหาและทำความสะอาด', 'จับคู่กับตัวชี้วัดของบท', 'สังเคราะห์สรุปภาษาไทยพร้อมอ้างอิง', 'ตรวจข้อเท็จจริงด้วย AI ตัวที่สอง'];
+    const jobSteps = jobLabels.map((label, i) => ({ label, cls: 'job-step' + (i < s.jobStage ? ' done' : (i === s.jobStage ? ' now' : '')), mark: i < s.jobStage ? '✓' : String(i + 1) }));
+    const childReq = s.askReq && s.job === 'idle';
+    const qCount = (childReq ? 1 : 0) + (s.job === 'review' ? 1 : 0);
+    const qrCells = [];
+    for (let r = 0; r < 21; r++) { for (let c = 0; c < 21; c++) {
+      const fr = (rr, cc) => rr >= 0 && rr < 7 && cc >= 0 && cc < 7 && (rr === 0 || rr === 6 || cc === 0 || cc === 6 || (rr >= 2 && rr <= 4 && cc >= 2 && cc <= 4));
+      const inF = (rr, cc) => rr < 8 && cc < 8;
+      let on;
+      if (inF(r, c) || inF(r, 20 - c) || inF(20 - r, c)) on = fr(r, c) || fr(r, 20 - c) || fr(20 - r, c);
+      else on = ((r * 7 + c * 13 + r * c) % 5) < 2;
+      qrCells.push(on ? 'on' : '');
+    } }
+    const themeLabel = s.pref === 'system' ? ('ตามอุปกรณ์ (ตอนนี้: ' + (isDark ? 'มืด' : 'สว่าง') + ')') : (isDark ? 'มืด · Arena' : 'สว่าง · Daylight');
+    const card = (k) => (s.pref === k ? 'ta-theme-card is-on' : 'ta-theme-card');
+
+    return {
+      theme, isDark, isLight: !isDark, themeLabel,
+      themeAria: isDark ? 'สลับเป็นธีมสว่าง' : 'สลับเป็นธีมมืด',
+      toggleTheme: () => this.setState({ pref: isDark ? 'light' : 'dark' }),
+      setDark: () => this.setState({ pref: 'dark' }), setLight: () => this.setState({ pref: 'light' }), setSystem: () => this.setState({ pref: 'system' }),
+      tc: { dark: card('dark'), light: card('light'), system: card('system') },
+      tcA: { dark: String(s.pref === 'dark'), light: String(s.pref === 'light'), system: String(s.pref === 'system') },
+      isAuth: scr === 'auth', isLogin: scr === 'login', isApp: scr !== 'login' && scr !== 'auth', isParent, isStudent: scr !== 'login' && scr !== 'auth' && !isParent,
+      au: this.authVals(), ob: this.onboardVals(),
+      toAuth: () => this.setState({ scr: 'auth', authStep: 'form', authTab: 'signup', sel: null, pin: 0 }),
+      toLobby: () => this.setState({ scr: 'login', sel: null, pin: 0 }),
+      learnTabs, lt: { sum: s.learnTab === 0, key: s.learnTab === 1, cheat: s.learnTab === 2 }, keyIdeas,
+      citeOpen: !!s.cite, src: { n: String(s.cite || ''), title: so[0], tier: so[1], support: so[2], meta: so[3] }, ask,
+      modes, tiers, jobSteps,
+      ps: { quota: String(6 + (s.job !== 'idle' ? 1 : 0)), isC: s.srcMode === 2, idle: s.job === 'idle' || s.job === 'rejected', running: s.job === 'running',
+        afterRun: s.job === 'review' || s.job === 'published', afterMsg: s.job === 'published' ? 'เผยแพร่แล้ว สร้างบทอื่นต่อได้ด้วยการเลือกขอบเขตใหม่' : 'สร้างเสร็จแล้ว รอคุณตรวจในคิวด้านขวา',
+        tierNote: s.tiers[2] ? 'T3 ใช้ได้เฉพาะประโยคที่มีแหล่ง T1 หรือ T2 ยืนยันตรงกัน และติดธงให้คุณตรวจทุกครั้ง' : 'ปิด T3 อยู่ ระบบใช้เฉพาะแหล่งทางการและสถาบันการศึกษา',
+        childReq, qCount: String(qCount), review: s.job === 'review', published,
+        run: () => this.runJob(), fromReq: () => { this.setState({ srcMode: 1 }); this.runJob(); },
+        approve: () => this.setState({ job: 'published', askReq: false }), reject: () => this.setState({ job: 'rejected' }) },
+      sec: { gLinked: s.gLinked, gNot: !s.gLinked, gText: s.gLinked ? 'เชื่อมแล้ว · parent@example.com' : 'ยังไม่ได้เชื่อม · เชื่อมแล้วเข้าสู่ระบบได้ด้วยปุ่มเดียว',
+        toggleG: () => this.setState({ gLinked: !this.state.gLinked }),
+        tfaLabel: s.tfa ? 'เปิดอยู่' : 'ปิดอยู่', tfaChip: s.tfa ? 'ta-chip ta-chip--lime' : 'ta-chip', tfaBtn: s.tfa ? 'ปิด 2FA' : 'เปิด 2FA', toggle2fa: () => this.setState({ tfa: !this.state.tfa }),
+        qr: s.qr, noQr: !s.qr, showQr: () => this.setState({ qr: true }), hideQr: () => this.setState({ qr: false }) },
+      qrCells,
+      lb: this.lobbyVals(), particles: this.lobbyVals().particles,
+      pickStudent: () => this.setState({ sel: 'student', pin: 0 }), pickParent: () => this.setState({ sel: 'parent', pin: 0 }),
+      enterArena: () => {
+        const st = this.state;
+        if (st.entering || !st.sel || (st.sel === 'student' && st.pin < 4)) return;
+        this.setState({ entering: true });
+        this._t = setTimeout(() => this.setState({ scr: st.sel === 'parent' ? 'pdash' : 'home', entering: false, sel: null, pin: 0 }), 1700);
+      },
+      logout: () => this.setState({ scr: 'login', sel: null, pin: 0, entering: false, qr: false }),
+      go, nav, scr: flags, title: t[0], subtitle: t[1],
+      coins: fmt(coins), xp, xpLeft: 630 - xp, xpPct: Math.round(xp / 630 * 100) + '%',
+      board, hofTabs, questDone: (s.claimed ? 2 : 1) + (s.tStep >= 2 ? 1 : 0),
+      flip: () => this.setState({ flipped: !this.state.flipped }),
+      flashText: s.flipped ? 'สัมประสิทธิ์' : 'coefficient', flashSub: s.flipped ? 'ตัวเลขที่คูณอยู่หน้าตัวแปร เช่น 3 ใน 3x' : 'แตะเพื่อพลิกดูความหมาย', flipHint: s.flipped ? 'ด้านหลัง' : 'ด้านหน้า',
+      tutor: { s1: s.tStep >= 1, s2: s.tStep >= 2, c0: s.tStep === 0, c1: s.tStep === 1, c2: s.tStep >= 2 },
+      tutorNext: () => this.setState({ tStep: Math.min(2, this.state.tStep + 1) }), tutorReset: () => this.setState({ tStep: 0 }), ladder,
+      opts, noSel: s.qSel === null, qDone: s.qDone, qNotDone: !s.qDone, qRight, qWrong: s.qDone && !qRight,
+      combo: s.combo, diff: s.qDone ? (qRight ? 'D4' : 'D2') : 'D3',
+      submit: () => { if (this.state.qSel !== null) { const r = this.state.qSel === 1; this.setState({ qDone: true, combo: r ? this.state.combo + 1 : 0 }); } },
+      nextQ: () => this.setState({ qDone: false, qSel: null }),
+      questCls: s.claimed ? 'ta-quest' : 'ta-quest is-done', questMsg: s.claimed ? 'สำเร็จและรับรางวัลแล้ว' : 'สำเร็จแล้ว · รับรางวัลได้', questCanClaim: !s.claimed, questClaimed: s.claimed,
+      claim: () => this.setState({ claimed: true }),
+      mastery, shop, heat, diffs, diffSummary: picked.length ? picked.join(', ') : 'ยังไม่ได้เลือกความยาก',
+      examSent: s.examSent, examNotSent: !s.examSent, sendExam: () => this.setState({ examSent: true }),
+      hasPending: s.requested, noPending: !s.requested, decide: () => this.setState({ requested: false })
+    };
+  }
+}
+</script>
+</body>
+</html>
