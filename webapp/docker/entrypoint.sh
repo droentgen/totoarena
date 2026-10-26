@@ -8,6 +8,7 @@ sed -ri "s/:80>/:${PORT}>/" /etc/apache2/sites-available/000-default.conf
 
 # Values come from Render's env vars at container start, so caching happens
 # here (not at build time, when they aren't set yet).
+php artisan migrate --force
 php artisan config:cache
 php artisan route:cache
 php artisan view:cache
