@@ -1,11 +1,14 @@
 <?php
 
+use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Auth\ConsentController;
 use App\Http\Controllers\Auth\EmailOtpController;
 use App\Http\Controllers\Auth\GoogleAuthController;
 use App\Http\Controllers\Settings\ThemeController;
 use App\Http\Controllers\Student\PinSessionController;
 use App\Livewire\OnboardingWizard;
+use App\Livewire\Quiz;
+use App\Livewire\Tutor;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -47,11 +50,16 @@ Route::post('/student/logout', [PinSessionController::class, 'destroy'])->name('
 // --- Theme (shared by both roles) ---
 Route::patch('/theme', [ThemeController::class, 'update'])->name('theme.update');
 
+// --- Admin (site-wide, not family-scoped — see User::isAdmin()) ---
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard');
+});
+
 // --- Student pages ---
 Route::get('/arena', fn () => view('student.home'))->name('student.home');
 Route::get('/learn', fn () => view('student.learn'))->name('student.learn');
-Route::livewire('/tutor', \App\Livewire\Tutor::class)->name('student.tutor');
-Route::livewire('/quiz', \App\Livewire\Quiz::class)->name('student.quiz');
+Route::livewire('/tutor', Tutor::class)->name('student.tutor');
+Route::livewire('/quiz', Quiz::class)->name('student.quiz');
 Route::get('/quests', fn () => view('student.quests'))->name('student.quests');
 Route::get('/report', fn () => view('student.report'))->name('student.report');
 Route::get('/hall-of-fame', fn () => view('student.hall-of-fame'))->name('student.hof');

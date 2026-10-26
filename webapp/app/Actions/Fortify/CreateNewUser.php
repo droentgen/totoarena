@@ -40,7 +40,7 @@ class CreateNewUser implements CreatesNewUsers
                 'max:255',
                 Rule::unique(User::class),
             ],
-            'password' => $this->passwordRules(),
+            'password' => $this->passwordRules(confirmed: false),
         ])->validate();
 
         return DB::transaction(function () use ($input) {

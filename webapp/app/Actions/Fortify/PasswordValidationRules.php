@@ -10,10 +10,19 @@ trait PasswordValidationRules
     /**
      * Get the validation rules used to validate passwords.
      *
+     * @param  bool  $confirmed  Only true where the form actually has a
+     *                           password_confirmation field — auth/form.blade.php's
+     *                           signup form doesn't, so CreateNewUser must pass false
+     *                           or every registration fails validation silently.
      * @return array<int, Rule|array<mixed>|string>
      */
-    protected function passwordRules(): array
+    protected function passwordRules(bool $confirmed = true): array
     {
-        return ['required', 'string', Password::default(), 'confirmed'];
+        return array_filter([
+            'required',
+            'string',
+            Password::default(),
+            $confirmed ? 'confirmed' : null,
+        ]);
     }
 }

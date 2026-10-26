@@ -23,8 +23,15 @@
         </div>
     </header>
 
+    @php
+        // On a validation-error redirect back, old('tab') isn't posted by either
+        // form, so fall back to which form's fields came back in old() input:
+        // only the signup form posts 'name'. Keeps the erroring tab in view
+        // instead of bouncing back to signup with the login error hidden.
+        $activeTab = $errors->any() ? (old('name') !== null ? 'signup' : 'login') : ($tab ?? 'signup');
+    @endphp
     <div class="au-wrap">
-        <div class="au-card" x-data="{ tab: '{{ $tab ?? 'signup' }}' }">
+        <div class="au-card" x-data="{ tab: '{{ $activeTab }}' }">
             <div class="ta-seg" role="tablist" aria-label="สมัครหรือเข้าสู่ระบบ" style="display: grid; grid-template-columns: 1fr 1fr;">
                 <button type="button" class="ta-seg-b" :class="{ 'is-on': tab === 'signup' }" @click="tab = 'signup'" role="tab" :aria-selected="tab === 'signup'" style="justify-content: center;">สมัครสมาชิก</button>
                 <button type="button" class="ta-seg-b" :class="{ 'is-on': tab === 'login' }" @click="tab = 'login'" role="tab" :aria-selected="tab === 'login'" style="justify-content: center;">เข้าสู่ระบบ</button>
@@ -34,6 +41,16 @@
                 <h1 class="au-h" x-text="tab === 'signup' ? 'สร้างบัญชีครอบครัว' : 'เข้าสู่ระบบ'"></h1>
                 <p class="small ta-muted" style="margin: 4px 0 0;" x-text="tab === 'signup' ? 'ใช้เวลาไม่ถึง 2 นาที' : 'ยินดีต้อนรับกลับมา'"></p>
             </div>
+
+            @if ($errors->any())
+                <div class="small" style="color: #ff6b6b; background: rgba(255,107,107,.08); border: 1px solid rgba(255,107,107,.3); border-radius: 8px; padding: 10px 12px;">
+                    <ul style="margin: 0; padding-left: 18px;">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
 
             <a href="{{ route('auth.google.redirect') }}" class="au-google" style="text-decoration: none;">
                 <span class="au-g" aria-hidden="true">G</span>
@@ -45,10 +62,10 @@
             <form method="POST" action="{{ route('register') }}" x-show="tab === 'signup'" class="ta-col" style="gap: 16px;">
                 @csrf
                 <label class="au-field">ชื่อ–นามสกุลผู้ปกครอง
-                    <input class="au-input" type="text" name="name" autocomplete="name" placeholder="เช่น สมชาย ใจดี">
+                    <input class="au-input" type="text" name="name" autocomplete="name" placeholder="เช่น สมชาย ใจดี" value="{{ old('name') }}">
                 </label>
                 <label class="au-field">อีเมล
-                    <input class="au-input" type="email" name="email" autocomplete="email" placeholder="you@example.com">
+                    <input class="au-input" type="email" name="email" autocomplete="email" placeholder="you@example.com" value="{{ old('email') }}">
                 </label>
                 <label class="au-field">รหัสผ่าน
                     <input class="au-input" type="password" name="password" autocomplete="new-password" placeholder="อย่างน้อย 8 ตัวอักษร">
@@ -65,7 +82,7 @@
             <form method="POST" action="{{ route('login') }}" x-show="tab === 'login'" class="ta-col" style="gap: 16px;">
                 @csrf
                 <label class="au-field">อีเมล
-                    <input class="au-input" type="email" name="email" autocomplete="email" placeholder="you@example.com">
+                    <input class="au-input" type="email" name="email" autocomplete="email" placeholder="you@example.com" value="{{ old('email') }}">
                 </label>
                 <label class="au-field">รหัสผ่าน
                     <input class="au-input" type="password" name="password" autocomplete="current-password" placeholder="รหัสผ่าน">

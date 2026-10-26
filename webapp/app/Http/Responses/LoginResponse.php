@@ -9,8 +9,12 @@ class LoginResponse implements LoginResponseContract
 {
     public function toResponse($request)
     {
-        return $request->wantsJson()
-            ? new JsonResponse('', 200)
-            : redirect()->intended(route('parent.dashboard'));
+        if ($request->wantsJson()) {
+            return new JsonResponse('', 200);
+        }
+
+        $home = $request->user()->isAdmin() ? route('admin.dashboard') : route('parent.dashboard');
+
+        return redirect()->intended($home);
     }
 }
