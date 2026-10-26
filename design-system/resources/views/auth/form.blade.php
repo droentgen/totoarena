@@ -10,6 +10,7 @@
     - duplicate-email case (06-registration.md: "อีเมลนี้มีบัญชีแล้ว") needs
       a custom Fortify RegisterResponse / form error, not shown here yet.
 --}}
+<x-layouts.auth title="สมัคร/เข้าสู่ระบบ">
 <div class="au ta-dots">
     <header class="au-top">
         <div class="ta-row" style="gap: 10px;">
@@ -76,3 +77,4 @@
         </div>
     </div>
 </div>
+</x-layouts.auth>

@@ -94,6 +94,7 @@ class Quiz extends Component
 
     public function render()
     {
-        return view('livewire.quiz');
+        return view('livewire.quiz')
+            ->layout('components.layouts.app', ['role' => 'student', 'title' => 'สนามสอบ', 'subtitle' => 'Boss Battle']);
     }
 }

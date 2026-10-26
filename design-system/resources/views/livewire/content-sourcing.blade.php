@@ -55,7 +55,7 @@
                         <button type="button" class="ta-chip {{ in_array($t, $enabledTiers) ? 'ta-chip--lime' : '' }}" wire:click="toggleTier('{{ $t }}')" aria-pressed="{{ in_array($t, $enabledTiers) ? 'true' : 'false' }}" style="padding: 6px 12px; font-size: 13px;">{{ $t }}</button>
                     @endforeach
                 </div>
-                <div class="caption ta-muted" style="margin-top: 6px;">{{ $tierNote }}</div>
+                <div class="caption ta-muted" style="margin-top: 6px;">{{ $this->tierNote }}</div>
             </div>
 
             <div>

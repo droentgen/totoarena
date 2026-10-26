@@ -2,7 +2,7 @@
 
 เป้าหมาย: พอร์ตดีไซน์จาก `../TOTO Arena ต้นแบบระบบ-html/Main.dc.html` (ต้นแบบที่ Claude ออกแบบไว้) ให้ **เหมือนเดิมทุกพิกเซล** เข้าสู่ Laravel Blade — ไม่ใช่ออกแบบใหม่
 
-ไฟล์ในโฟลเดอร์นี้เป็น **staging** ยังไม่อยู่ในโปรเจกต์ Laravel จริง (เครื่องนี้ยังไม่มี PHP/Composer ติดตั้ง — ดู `../CLAUDE.md`) เมื่อ scaffold โปรเจกต์ Laravel แล้ว ให้ย้ายไฟล์ตามตารางด้านล่าง
+ไฟล์ในโฟลเดอร์นี้เป็น **staging/reference** — ของจริงที่รันอยู่คือ `../webapp/` (Laravel 13 + Livewire 4 + Fortify + Socialite, scaffold แล้ว, ย้ายไฟล์ทั้งหมดเข้าไปแล้ว, migrate ขึ้น Supabase Postgres จริงสำเร็จ, ทุกหน้า route ทดสอบ GET แล้วได้ 200) เก็บโฟลเดอร์นี้ไว้เป็น snapshot/เอกสารอ้างอิงของการพอร์ต — แก้โค้ดจริงที่ `../webapp/` แล้วค่อย sync กลับมาที่นี่ถ้าต้องการ
 
 ## ย้ายไปไว้ที่ไหน
 
@@ -95,9 +95,9 @@ settings.sessions.logout-all    — POST, ออกจากทุกเคร�
 
 ### ข้อควรระวัง (สำคัญ)
 
-- **ไม่มี PHP ในเครื่องนี้** — ไฟล์ Livewire ทั้งหมด (`app/Livewire/*.php` + `resources/views/livewire/*.blade.php`) เขียนจากความเข้าใจ Livewire 3 โดยไม่ได้รันทดสอบจริง **ต้องตรวจสอบก่อนใช้งานจริง** โดยเฉพาะ `Tutor.php` ที่ใช้ `wire:stream`/`$this->stream()` — ยืนยัน API กับเวอร์ชัน Livewire ที่ติดตั้งจริงก่อน
-- ทุกจุดที่มี `TODO:` ในไฟล์ยังไม่ต่อกับฐานข้อมูล/AI จริง — เป็นแค่ fixture data ให้หน้าตาตรงกับต้นแบบ
-- Route names ทั้งหมดที่ใช้ยังไม่ได้ลงทะเบียนจริงใน `routes/web.php` — ดูรายการทั้งหมดด้านล่าง
+- **อัปเดต**: PHP 8.3 + Composer ติดตั้งแล้ว, webapp scaffold เสร็จ, Livewire ที่ติดตั้งจริงคือ **v4.4** (ไม่ใช่ v3 ที่ไฟล์พวกนี้เขียนไว้แต่เดิม) — ตรวจสอบแล้วว่า class-based component format และ `$this->stream(to: ...)` + `wire:stream` ยังใช้ได้ตรงกับ v4 (ดู comment ใน `Tutor.php`); แก้ไปแล้ว 2 บั๊กจากตอน "เขียนลอย ไม่ได้รันจริง": `components/layouts/app.blade.php`/ไฟล์ `auth/*.blade.php` ไม่มี `<!DOCTYPE html>`/`<head>` ให้ (เพิ่ม `components/layouts/auth.blade.php` ใหม่ + wire `@vite`/`@livewireScripts`), และ `content-sourcing.blade.php` เรียก `$tierNote` ตรง ๆ ทั้งที่เป็น computed property (ต้อง `$this->tierNote`)
+- ทุกจุดที่มี `TODO:` ในไฟล์ยังไม่ต่อกับฐานข้อมูล/AI จริง — เป็นแค่ fixture data ให้หน้าตาตรงกับต้นแบบ (แต่ตอนนี้ auth จริงบางส่วนต่อแล้ว: register/login ผ่าน Fortify, Google OAuth, PIN guard ของนักเรียน, OTP อีเมล, consent — ดู `routes/web.php` ใน webapp/)
+- Route names ทั้งหมดในตารางด้านล่างลงทะเบียนจริงแล้วใน `webapp/routes/web.php`
 
 บรรทัดอ้างอิงใน `Main.dc.html` สำหรับแต่ละหน้า (ไว้พอร์ตต่อ): ดู comment `<!-- ======== … ======== -->` ในไฟล์นั้น เช่น `STUDENT: HOME` บรรทัด 453, `PARENT: DASHBOARD` บรรทัด 762 ฯลฯ
 
@@ -116,21 +116,16 @@ settings.sessions.logout-all    — POST, ออกจากทุกเคร�
 - **`Student::tierLabel()`** คำนวณจาก level band เท่านั้น — ยังไม่ครบตามกฎจริงที่ต้องผ่าน Promotion Trial ด้วย (`03-gamification.md`) มี comment ไว้ในไฟล์แล้ว
 - ทุก migration/model เป็น **structure เท่านั้น** ยังไม่มี business logic (XP calculation, Adaptive Engine, AI calls, quota enforcement ฯลฯ) — ใส่ไว้แค่โครงและ TODO ตามจุดที่เอกสารพูดถึง
 
-## ขั้นต่อไป (เมื่อมี PHP/Composer พร้อม)
+## ขั้นต่อไป — เสร็จแล้ว ✓ (ที่เหลือ)
+
+PHP/Composer ติดตั้งแล้ว, `webapp/` scaffold และ `composer require livewire/livewire laravel/socialite laravel/fortify` + `laravel/boost` เสร็จแล้ว, ไฟล์ทั้งหมดย้ายเข้า `webapp/` แล้ว, `.env` ชี้ไป Supabase Postgres จริงแล้ว, `php artisan migrate` รันผ่านทั้ง 44 ไมเกรชันบน Supabase จริงแล้ว (pgvector ใช้ได้), ทุก route ในตารางด้านบนลงทะเบียนแล้วและทดสอบ GET ได้ 200 หมด
+
+ที่ยังไม่ทำ (ของจริง ไม่ใช่แค่ wiring แล้ว):
 
 ```bash
-composer create-project laravel/laravel webapp
-cd webapp
-composer require livewire/livewire laravel/socialite laravel/fortify
-npm install -D tailwindcss @tailwindcss/vite
-php artisan livewire:publish --config
-```
-
-จากนั้นคัดลอกไฟล์จากโฟลเดอร์นี้เข้า `webapp/` ตามตารางด้านบน (รวม `database/migrations/`, `app/Models/`, `app/Casts/`, `app/Livewire/`) ตั้งค่า `.env` ให้ชี้ไป Supabase Postgres แล้วรัน:
-
-```bash
-php artisan migrate
 php artisan db:seed   # ยังไม่มี seeder ให้ — ต้องเขียนเพิ่มสำหรับ subjects/grades/terms/source_domains เริ่มต้น
 ```
 
-สร้าง route names ให้ครบตามรายการข้างต้นก่อนรันหน้าแรก แล้วตรวจ Livewire components ทั้ง 5 ตัวตามหัวข้อ "ข้อควรระวัง" ก่อนเชื่อถือว่าใช้งานได้จริง
+- Business logic ของจริงยังเป็น TODO ตามที่ comment ไว้ในแต่ละไฟล์ (Game Engine, Adaptive Engine, AI calls ไปยัง Claude, GenerationJob queue, quota enforcement, device_sessions ฯลฯ)
+- 2FA/Passkeys ปิดไว้ใน `config/fortify.php` เพราะไม่มีหน้า QR/confirm ในดีไซน์ — เปิดใช้ได้เมื่อออกแบบหน้าพวกนี้แล้ว
+- `settings.*`, `student.quests.claim`, `student.shop.redeem`, `parent.content.upload`, `parent.rewards.decide` ฯลฯ ยังเป็น stub route คืน "TODO" กลับไปหน้าเดิม — ของจริงต้องเขียนทีละฟีเจอร์ตาม 01/02/03-*.md

@@ -3,6 +3,7 @@
     TODO: on submit, record Consent(doc_type, doc_version, accepted_at, ip)
     per guardian per 06-registration.md, then redirect to onboarding.
 --}}
+<x-layouts.auth title="ข้อตกลงและความยินยอม">
 <div class="au ta-dots">
     <header class="au-top">
         <div class="ta-row" style="gap: 10px;">
@@ -57,3 +58,4 @@
         </div>
     </div>
 </div>
+</x-layouts.auth>

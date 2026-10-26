@@ -6,11 +6,9 @@ use Illuminate\Support\Facades\Schema;
 
 /**
  * Alters Laravel's default `users` table (guardians) — does NOT recreate
- * it. Fortify's own migration already adds two_factor_secret /
- * two_factor_recovery_codes / two_factor_confirmed_at if you publish its
- * config with `--2fa`; this migration adds them too as a fallback in case
- * you don't use that flag. Drop the two_factor_* columns here if Fortify's
- * own migration already created them (avoid a duplicate-column error).
+ * it. two_factor_* columns are added by Fortify's own published migration
+ * (2026_10_26_064853_add_two_factor_columns_to_users_table.php), which runs
+ * after this one in sequence — not duplicated here.
  */
 return new class extends Migration
 {
@@ -20,9 +18,6 @@ return new class extends Migration
             $table->foreignId('family_id')->nullable()->constrained()->nullOnDelete();
             $table->enum('role', ['owner', 'co_guardian'])->default('owner');
             $table->enum('theme', ['dark', 'light', 'system'])->default('system');
-            $table->string('two_factor_secret')->nullable();
-            $table->text('two_factor_recovery_codes')->nullable();
-            $table->timestamp('two_factor_confirmed_at')->nullable();
         });
     }
 
@@ -30,7 +25,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dropConstrainedForeignId('family_id');
-            $table->dropColumn(['role', 'theme', 'two_factor_secret', 'two_factor_recovery_codes', 'two_factor_confirmed_at']);
+            $table->dropColumn(['role', 'theme']);
         });
     }
 };

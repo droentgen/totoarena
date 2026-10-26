@@ -21,6 +21,7 @@
 @endphp
 
 {{-- no <x-layouts.app> wrapper on purpose: full-bleed lobby, no sidebar/topbar --}}
+<x-layouts.auth title="เข้าสู่ระบบ">
 <div
     class="lb"
     style="font-family: 'Anuphan', system-ui, sans-serif;"
@@ -143,3 +144,4 @@
 
     <div class="lb-foot"><span>Players online · {{ $onlineCount ?? 3 }}</span><span>Server · TH-01 · {{ $pingMs ?? 24 }} ms</span><span>v0.1 prototype</span></div>
 </div>
+</x-layouts.auth>

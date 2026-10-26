@@ -10,7 +10,7 @@
 --}}
 <x-layouts.app :role="$role ?? 'student'" title="ตั้งค่า" subtitle="การแสดงผล">
     @php
-        $theme = $theme ?? (auth('student')->user()->theme ?? auth()->user()->theme ?? 'dark');
+        $theme = $theme ?? (auth('student')->user()?->theme ?? auth()->user()?->theme ?? 'dark');
         $themeLabels = ['dark' => 'มืด · Arena', 'light' => 'สว่าง · Daylight', 'system' => 'ตามอุปกรณ์'];
     @endphp
 
@@ -67,7 +67,7 @@
                 </div>
 
                 <div class="ta-row" style="justify-content: space-between;">
-                    <div><div class="body-strong">อีเมล + รหัสผ่าน</div><div class="small ta-muted">{{ auth()->user()->email }}</div></div>
+                    <div><div class="body-strong">อีเมล + รหัสผ่าน</div><div class="small ta-muted">{{ auth()->user()?->email ?? 'name@example.com' }}</div></div>
                     <a href="{{ route('password.request') }}" class="ta-btn ta-btn--secondary ta-btn--sm" style="text-decoration: none;">เปลี่ยนรหัสผ่าน</a>
                 </div>
 

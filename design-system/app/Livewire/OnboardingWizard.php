@@ -84,6 +84,7 @@ class OnboardingWizard extends Component
 
     public function render()
     {
-        return view('livewire.onboarding-wizard');
+        return view('livewire.onboarding-wizard')
+            ->layout('components.layouts.auth', ['title' => 'ตั้งค่าครอบครัว']);
     }
 }

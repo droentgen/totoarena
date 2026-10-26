@@ -6,13 +6,11 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 
 /**
- * UNTESTED SCAFFOLDING — no PHP runtime available in this environment to
- * verify any of this, especially the streaming call. `wire:stream` / the
- * `$this->stream()` method signature used below is from memory (Livewire 3
- * streaming updates) — confirm against the Livewire version actually
- * installed before trusting it; the API may have moved on.
- *
  * Ported from Main.dc.html lines ~554-592 ("STUDENT: TUTOR").
+ * `$this->stream(to: ...)` + `wire:stream="reply"` verified against the
+ * installed livewire/livewire ^4.4 (HandlesStreaming::stream signature
+ * still accepts `$to`) — streaming itself still untested end-to-end since
+ * sendMessage() doesn't call a real AI backend yet (see TODO below).
  */
 class Tutor extends Component
 {
@@ -86,6 +84,7 @@ class Tutor extends Component
 
     public function render()
     {
-        return view('livewire.tutor');
+        return view('livewire.tutor')
+            ->layout('components.layouts.app', ['role' => 'student', 'title' => 'ติวกับพี่โต้', 'subtitle' => 'Smart Socratic Tutor']);
     }
 }

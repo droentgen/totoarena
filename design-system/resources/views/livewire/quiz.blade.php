@@ -3,8 +3,10 @@
     Boss Battle). Lives inside app/Livewire/Quiz.php (see that file — UNTESTED).
     Timer display is Alpine (client countdown from a server timestamp);
     actual time-limit enforcement must happen server-side on submit.
+
+    No <x-layouts.app> wrapper — Quiz::render() applies it via ->layout(),
+    same reasoning as livewire/tutor.blade.php.
 --}}
-<x-layouts.app role="student" title="สนามสอบ" subtitle="Boss Battle">
     <div class="ta-col" style="gap: 16px;">
         <div class="ta-glass ta-row" style="padding: 14px 20px; justify-content: space-between;">
             <div>
@@ -91,4 +93,3 @@
             </aside>
         </div>
     </div>
-</x-layouts.app>

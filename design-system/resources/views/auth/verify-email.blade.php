@@ -4,6 +4,7 @@
     verification) — needs a custom action: generate+store a hashed OTP,
     15-min expiry, resend max 5/hour/60s cooldown (06-registration.md).
 --}}
+<x-layouts.auth title="ยืนยันอีเมล">
 <div class="au ta-dots">
     <header class="au-top">
         <div class="ta-row" style="gap: 10px;">
@@ -21,7 +22,7 @@
             <div>
                 <h1 class="au-h">ยืนยันอีเมลของคุณ</h1>
                 <p class="small ta-muted" style="margin: 4px 0 0;">
-                    ส่งรหัส 6 หลักไปที่ <b style="color: var(--ink);">{{ $email ?? auth()->user()->email }}</b> แล้ว
+                    ส่งรหัส 6 หลักไปที่ <b style="color: var(--ink);">{{ $email ?? auth()->user()?->email ?? 'name@example.com' }}</b> แล้ว
                     รหัสใช้ได้ 15 นาที (หรือกดลิงก์ในอีเมลเดียวกันก็ได้)
                 </p>
             </div>
@@ -41,3 +42,4 @@
         </div>
     </div>
 </div>
+</x-layouts.auth>

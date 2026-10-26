@@ -5,15 +5,19 @@
     This is the one screen that genuinely needs Livewire's streaming
     (wire:stream) per CLAUDE.md — the chat reply should type in token by
     token, not pop in all at once.
+
+    No <x-layouts.app> wrapper here — Tutor::render() applies it via the
+    view ->layout() macro instead (full-page Livewire components can't
+    have a root <html> element; Livewire needs a single trackable root
+    element to attach wire:id to).
 --}}
-<x-layouts.app role="student" title="ติวกับพี่โต้" subtitle="Smart Socratic Tutor">
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; align-items: start;">
         <section class="ta-glass ta-col" style="padding: 24px; gap: 18px; grid-column: span 2; min-width: 0;">
 
             @foreach ($messages as $m)
                 @if ($m['role'] === 'student')
                     <div class="ta-msg ta-msg--me">
-                        <div class="ta-avatar" style="width: 36px; height: 36px; font-size: 13px;">{{ auth('student')->user()->initials ?? 'กล้า' }}</div>
+                        <div class="ta-avatar" style="width: 36px; height: 36px; font-size: 13px;">{{ auth('student')->user()?->initials ?? 'กล้า' }}</div>
                         <div class="ta-col" style="gap: 8px; align-items: flex-end;">
                             @if (($m['type'] ?? 'text') === 'image')
                                 <div class="ta-card" style="padding: 12px 16px; background: var(--bg-300);">
@@ -91,4 +95,3 @@
             </div>
         </aside>
     </div>
-</x-layouts.app>
