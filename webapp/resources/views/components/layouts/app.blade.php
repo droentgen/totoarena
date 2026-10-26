@@ -1,5 +1,10 @@
 @props([
-    'theme' => auth()->user()?->theme ?? 'dark', // 'dark' | 'light' — never hardcode colors, always via data-theme
+    // prototype.css only defines color tokens for [data-theme="dark"|"light"]
+    // — the users.theme column also allows 'system' (its default), which
+    // isn't a real CSS value and silently drops every token, rendering
+    // unstyled. Resolve it to 'dark' until actual OS-preference detection
+    // (prefers-color-scheme, pre-paint) is wired up.
+    'theme' => in_array(auth()->user()?->theme, ['dark', 'light'], true) ? auth()->user()->theme : 'dark',
     'role' => 'student', // 'student' | 'parent'
     'title' => '',
     'subtitle' => '',

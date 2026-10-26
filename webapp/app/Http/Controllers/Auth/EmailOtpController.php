@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\EmailOtp;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Str;
+use Illuminate\View\View;
 
 /**
  * Fortify ships signed-link email verification, not a 6-digit OTP, so
@@ -22,16 +22,45 @@ use Illuminate\Support\Str;
  */
 class EmailOtpController extends Controller
 {
+    /**
+     * The view used to just claim "we already sent you a code" without
+     * ever sending one — nothing fired an OTP until the user hit "resend",
+     * so the first code they could actually use was the second one. Send
+     * it here instead, gated by the same 60s cooldown as a manual resend.
+     */
+    public function notice(): View
+    {
+        $user = Auth::user();
+
+        if ($user && ! $this->withinResendCooldown($user)) {
+            $this->issueOtp($user);
+        }
+
+        return view('auth.verify-email');
+    }
+
     public function send(Request $request)
     {
         $user = Auth::user();
 
-        $lastSentAt = $user->emailOtps()->latest()->first()?->created_at;
-
-        if ($lastSentAt && $lastSentAt->diffInSeconds(now()) < 60) {
+        if ($this->withinResendCooldown($user)) {
             return back()->withErrors(['otp' => 'ส่งรหัสใหม่ได้อีกครั้งในอีกสักครู่']);
         }
 
+        $this->issueOtp($user);
+
+        return back()->with('status', 'ส่งรหัสยืนยันแล้ว');
+    }
+
+    private function withinResendCooldown(User $user): bool
+    {
+        $lastSentAt = $user->emailOtps()->latest()->first()?->created_at;
+
+        return $lastSentAt && $lastSentAt->diffInSeconds(now()) < 60;
+    }
+
+    private function issueOtp(User $user): void
+    {
         $code = (string) random_int(100000, 999999);
 
         $user->emailOtps()->create([
@@ -42,8 +71,6 @@ class EmailOtpController extends Controller
         Mail::raw("รหัสยืนยันอีเมล TOTO Arena ของคุณคือ: {$code} (ใช้ได้ 15 นาที)", function ($message) use ($user) {
             $message->to($user->email)->subject('ยืนยันอีเมล TOTO Arena');
         });
-
-        return back()->with('status', 'ส่งรหัสยืนยันแล้ว');
     }
 
     public function verify(Request $request)

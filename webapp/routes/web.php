@@ -34,7 +34,7 @@ Route::get('/signup-login', fn () => view('auth.form', ['tab' => request('tab', 
 Route::get('/auth/google/redirect', [GoogleAuthController::class, 'redirect'])->name('auth.google.redirect');
 Route::get('/auth/google/callback', [GoogleAuthController::class, 'callback']);
 
-Route::get('/verify-email', fn () => view('auth.verify-email'))->name('verification.notice');
+Route::get('/verify-email', [EmailOtpController::class, 'notice'])->name('verification.notice');
 Route::post('/verify-email/send-otp', [EmailOtpController::class, 'send'])->name('verification.send-otp');
 Route::post('/verify-email/verify-otp', [EmailOtpController::class, 'verify'])->name('verification.verify-otp');
 
